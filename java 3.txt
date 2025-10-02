@@ -1,0 +1,325 @@
+﻿Practical No.3 
+Name: Wayal Prasanna Ganesh
+Class: T.Y B.sc(Computer Science)
+Div: B                          B  atch: D
+Roll No : 59
+Subject :CS-359 Object Oriented Programming Language Using Java-I
+Practical Name: Inheritance and Interfaces 
+Performance Date:                           Submission Date: 
+ 
+SetA) 
+ 
+Que.1) Write a program for multilevel inheritance such that country is inherited from 
+continent. State is inherited from country. Display the place, state, country and continent. 
+ 
+Program: 
+import java.io.InputStreamReader; 
+import java.io.BufferedReader; 
+import Java.io.IOException; 
+class continent 
+{ 
+String con; 
+InputSteramReader i=new InputSteamReader(System.in); 
+BufferedReader r=new BufferedReader(i); 
+void con_input() throws IOException 
+{ 
+System.out.println("Enter continent name:"); 
+con=r.readLine(); 
+} 
+} 
+class Country extends Continent 
+{ 
+String cou; 
+void cou_input() throws IOException 
+{ 
+System.out.println("Enter country name:"); 
+cou=r.readLine(); 
+} 
+} 
+class state extends Country 
+{ 
+String sta; 
+void sta_input() throws IOException 
+{ 
+System.out.println("Enter State Name:"); 
+sta=r.readLine(); 
+} 
+} 
+class Maincontinent1 extends state 
+{ 
+String pla; 
+void pla_input() throws IOException 
+
+
+
+{ 
+System.out.println("Enter Place Name:"); 
+pla=r.readLine(); 
+} 
+public static void main(String args[]) throws IOException 
+{ 
+Main a=new Main(); 
+s.con_input(); 
+s.cou_input(); 
+s.sta_input(); 
+s.pla_input(); 
+System.out.println("\n\nContinent:"+s.con); 
+System.out.println("Country:"+s.cou); 
+System.out.println("State:"+s.sta); 
+System.out.println("Place:"+s.pla); 
+} 
+} 
+Output: 
+Enter Continent Name: 
+Asia 
+Enter Country Name: 
+India 
+Enter State Name: 
+Maharashta 
+Enter Place Name: 
+Manchar 
+ 
+Continent:Asia 
+Country:India 
+State:Maharashta 
+Place:Manchar 
+ 
+Que.2) Define an abstract class Staff with protected members id and name. Define a 
+parameterized constructor. Define one subclass OfficeStaff with member department. Create 
+n objects of Office Staff and display all details. 
+ 
+Program: 
+import java.util.*; 
+abstract class Staff 
+{ 
+protected int mid; 
+protected String mname; 
+Staff(int mid,String mname) 
+{ 
+this.mid=mid; 
+this.mname=mname; 
+} 
+abstract void display(); 
+} 
+class officestaff extends Staff 
+{ 
+String dept; 
+
+
+
+officestaff(int mid,String mname,String dept) 
+{ 
+super(mid,mname); 
+this.dept=dept; 
+} 
+void display() 
+{ 
+System.out.println("member id="+mid); 
+System.out.println("member name="+mname); 
+System.out.println("member department="+dept); 
+System.out.println(" "); 
+} 
+} 
+public class staff2 
+{ 
+public static void main(String args[]) 
+{ 
+Scanner sc= new Scanner(System.in); 
+System.out.println("how many object you want to create"); 
+int n= sc.nextInt(); 
+officestaff  o[]=new officestaff[n]; 
+for(int i=0;i<n;i++) 
+{ 
+System.out.println("enter the member id "); 
+int mid= sc.nextInt(); 
+System.out.println("enter the member name "); 
+String mname= sc.next(); 
+System.out.println("enter the member department "); 
+String dept= sc.next(); 
+o[i] = new officestaff(mid,mname,dept); 
+} 
+System.out.println("Total no of object created"+n); 
+for(int i=0;i<n;i++) 
+{ 
+o[i].display(); 
+} 
+} 
+} 
+ 
+Output: 
+how many object you want to create 
+3 
+enter the member id 
+60 
+enter the member name 
+tanvi 
+enter the member department 
+Mcs 
+enter the member id 
+50 
+enter the member name 
+sakshi 
+
+
+
+enter the member department 
+bcs 
+enter the member id 
+40 
+enter the member name 
+riya 
+enter the member department 
+bca 
+Total no of object created3 
+member id=60 
+member name=tanvi 
+member department=Mcs 
+  
+member id=50 
+member name=sakshi 
+member department=bcs 
+  
+member id=40 
+member name=riya 
+member department=bca 
+ 
+Que.3) Write a program to find the cube of given number using function interface. 
+ 
+Program: 
+import java.util.Scanner; 
+public class FindingCube 
+{ 
+public static void main(String[]args) 
+{ 
+int n=5; 
+System.out.println("Enter a number:"); 
+Scanner sc=new Scanner(System.in); 
+int num=sc.nextInt(); 
+System.out.println("Cube of the given number is"+(num*num*num)); 
+} 
+} 
+Output: 
+Enter a number: 
+2 
+Cube of the given number is 8 
+ 
+Set B) 
+ 
+Que.4) Write a program to using marker interface create a class product(product_id, 
+product_name, product_cost, product_quantity) define a default and parameterized 
+constructor. Create objects of class product and display the contents of each object 
+and Also display the object count. 
+ 
+Program: 
+import java.util.*; 
+interface ProductMarker 
+{ 
+
+
+
+} 
+class Product implements ProductMarker 
+{ 
+int id; 
+String name; 
+int cost; 
+int quantity; 
+int count; 
+Product(){ 
+id=0; 
+name=" "; 
+cost=0; 
+quantity=0; 
+} 
+Product(int id, String name, int cost, int quantity){ 
+this.id=id; 
+this.name=name; 
+this.cost=cost; 
+this.quantity=quantity; 
+this.count++; 
+} 
+} 
+public class Products 
+{ 
+public static void main(String[]args) 
+{ 
+int count=0; 
+Scanner a = new Scanner(System.in); 
+System.out.println("How many product ?"); 
+int number = a.nextInt(); 
+ 
+System.out.println("\n"); 
+Product products[] = new Product[number]; 
+System.out.println("Enter product data"); 
+for(int k=0;k<number;k++) 
+{ 
+System.out.println("Product Id"); 
+int id = a.nextInt(); 
+System.out.println("Product name"); 
+String name = a.next(); 
+System.out.println("Product cost"); 
+int cost = a.nextInt(); 
+System.out.println("Product quantity"); 
+int quantity = a.nextInt(); 
+System.out.println("\n"); 
+products[k] = new Product(id, name, cost, quantity); 
+count++; 
+} 
+ 
+if(products[0] instanceof ProductMarker){ 
+System.out.println("Class is using ProductMarker"); 
+} 
+
+
+
+System.out.println("Product details\n"); 
+for(Product product:products) 
+{ 
+System.out.println("Product Id"+product.id); 
+System.out.println("Product name"+product.name); 
+System.out.println("Product cost"+product.cost); 
+System.out.println("Product quantity"+product.quantity); 
+System.out.println("\n"); 
+} 
+System.out.println("Total object is"+count); 
+} 
+} 
+ 
+Output: 
+How many product ? 
+2 
+ 
+Enter product data 
+Product Id 
+1 
+Product name 
+Medmix 
+Product cost 
+30 
+Product quantity 
+3 
+ 
+Product Id 
+2 
+Product name 
+Santoor 
+Product cost 
+20 
+Product quantity 
+5 
+ 
+Class is using ProductMarker 
+Product details 
+ 
+Product Id1 
+Product nameMedmix 
+Product cost30 
+Product quantity3 
+ 
+Product Id2 
+Product nameSantoor 
+Product cost20 
+Product quantity5 
+ 
+ 
+Total object is2
