@@ -1,0 +1,274 @@
+﻿Practical No.  2 
+Name: Wayal Prasanna Ganesh
+Class : T.Y.B.Sc (Computer Science)
+Div : B
+Batch: D
+Roll No: 59
+Name of Practical: Array Of Objects And packages 
+Performance Date:                                 Submission Date:    
+ 
+  
+ 
+Que.1) Create an employee class(id,name,deptname,salary). Define a default and 
+parameterized constructor. Use ‘this’ keyword to initialize instance variables. 
+Keep a count of objects created. Create objects using parameterized constructor 
+and display the object count after each object is created.(Use static member and 
+method). Also display the contents of each object. 
+Ans: 
+Program: 
+import java.util.Scanner; 
+public class Employee{ 
+int id; 
+String name; 
+String deptname; 
+float salary; 
+static int numberofobjects=0; 
+Employee()  {   
+id=0; 
+name=""; 
+deptname=""; 
+salary=0; 
+}     
+Employee(int id,String name,String deptname,float salary)    
+{ 
+this.id=id;          
+this.name=name; 
+this.deptname=deptname; 
+this.salary=salary; 
+numberofobjects++; 
+} 
+public void display(){ 
+System.out.println("Employee Id:"+id); 
+System.out.println("Employee name:"+name); 
+System.out.println("Employee Department:"+deptname); 
+System.out.println("Employee Salary:"+salary); 
+} 
+public static void main(String[] args){ 
+int n=0; 
+Scanner sc=new Scanner(System.in); 
+System.out.print("How many employees you want to enter:"); 
+n=sc.nextInt(); 
+Employee[] ob=new Employee[n]; 
+for(int i=0;i<n;i++){ 
+sc=new Scanner (System.in); 
+System.out.println("Enter Id of Employee"+(i+1)+":"); 
+int id =sc.nextInt(); 
+System.out.println("Enter Name of Employee"+(i+1)+":"); 
+
+
+
+sc.nextLine(); 
+String name=sc.nextLine(); 
+System.out.println("Enter Dept Name of Employee"+(i+1)+":"); 
+String deptname=sc.nextLine(); 
+System.out.println("Enter Salary of Employee"+(i+1)+":"); 
+float salary=sc.nextFloat(); 
+ob[i]=new Employee(id,name,deptname,salary); 
+System.out.println("\nNumber of Objects:"+numberofobjects); 
+} 
+for(int i=0;i<n;i++) 
+{ 
+ob[i].display(); 
+} 
+} 
+} 
+Output- 
+How many employees you want to enter:3 
+Enter Id of Employee1: 
+100 
+Enter Name of Employee1: 
+Payal 
+Enter Dept Name of Employee1: 
+Computer Science 
+Enter Salary of Employee1: 
+50000 
+Number of Objects:1 
+Enter Id of Employee2: 
+204 
+Enter Name of Employee2: 
+Rajashree 
+Enter Dept Name of Employee2: 
+Mcs 
+Enter Salary of Employee2: 
+80000 
+Number of Objects:2 
+Enter Id of Employee3: 
+300 
+Enter Name of Employee3: 
+Nikita 
+Enter Dept Name of Employee3: 
+Bca 
+Enter Salary of Employee3: 
+30000 
+Number of Objects:3 
+Employee Id:100 
+Employee name:Payal 
+Employee Department:Computer Science 
+Employee Salary:50000.0 
+Employee Id:204 
+Employee name:Rajashree 
+Employee Department:Mcs 
+Employee Salary:80000.0 
+Employee Id:300 
+Employee name:Nikita 
+Employee Department:Bca 
+Employee Salary:30000.0 
+ 
+
+
+
+ 
+ 
+Que.2) Write a java program to accept 5 numbers using command line arguments sort and 
+display them. 
+Ans: 
+Program 
+import java.io.*; 
+public class CommandLine 
+{ 
+public static void main(String[] args) throws IOException 
+{ 
+int[] arr=new int[5]; 
+for(int i=0;i<5;i++)     //array initialization 
+{ 
+arr[i]=Integer.parseInt(args[i]); 
+} 
+int temp=0;  //temporary variable to store the element 
+for(int i=0;i<5;i++)   // hold each array element 
+{ 
+for(int j=i+1;j<5;j++)         //comparing with remaining array elements 
+{ 
+if(arr[i] > arr[j]) // compare the swap 
+{ 
+temp=arr[i]; 
+arr[i]=arr[j]; 
+arr[j]=temp; 
+} 
+} 
+} 
+System.out.println(); 
+// displaying the array elements after swapping 
+System.out.println("Elements of array sorted in ascending order:"); 
+for(int i=0;i<5;i++) 
+{ 
+System.out.print(arr[i] + "arr"); 
+System.out.print("\n"); 
+} 
+} 
+} 
+output- 
+javac CommandLine.java 
+java CommandLine 3 5 1 2 9 
+Elements of array sorted in ascending order: 
+1arr 
+2arr 
+3arr 
+5arr 
+9arr 
+ 
+Que.3) Write a java program that take input as a person name in the format of first, middle 
+and last name and then print it in the form last, first and middle name, where in the 
+middle name first character is capital letter. 
+Ans: 
+Program: 
+import java.util.*; 
+import java.util.Scanner; 
+class personName 
+
+
+
+{ 
+String fname,mname,lname; 
+int len; 
+void accept() 
+{ 
+System.out.println("Enter First Name:"); 
+Scanner s=new Scanner(System.in); 
+fname=s.next(); 
+System.out.println("Enter Middle Name:"); 
+mname=s.next(); 
+System.out.println("Enter last Name:"); 
+lname=s.next(); 
+len=mname.length(); 
+String f=mname.substring(0,1); 
+String l=mname.substring(1,len); 
+f=f.toUpperCase(); 
+mname=f+l; 
+} 
+void display() 
+{ 
+System.out.println("Last Name:"+lname); 
+System.out.println("First Name:"+fname); 
+System.out.println("Middle Name:"+mname); 
+} 
+public static void main(String a[]) 
+{ 
+personName p=new personName(); 
+p.accept(); 
+p.display(); 
+} 
+} 
+ 
+Output- 
+Enter First Name: 
+Raj 
+Enter Middle Name: 
+janardan 
+Enter last Name: 
+Kale 
+Last Name:Kale 
+First Name:Raj 
+Middle Name:Janardan 
+ 
+Set C) 
+Que.1) Write a package for String operation which has two classes Con and Comp. Con class 
+has to concatenates two strings and comp class compares two strings. Also display 
+proper message on execution. 
+Ans: 
+Program: 
+import Stringoperations.Con;  
+import Stringoperations.Comp;  
+public class Main  
+{  
+public static void main(String[] args)  
+{  
+String str1="Hello";  
+String str2="World";  
+
+
+
+Con con=new Con();  
+String concatinatedString=con.concatenate(str1,str2);  
+System.out.println("Concatenated String:"+concatenatedString);  
+Comp comp=new Comp();  
+Boolean areEqual=comp.compare(str1,str2);  
+System.out.println("Are the strings equal?"+areEqual);  
+}  
+}  
+ 
+con.java 
+package Stringoperations;  
+public class Con  
+{ 
+ public static String concatenate(String str1,String str2)  
+{ 
+ return str1+str2;  
+} 
+ } 
+ 
+ comp.java 
+ package Stringoperations; 
+ public class Comp  
+{ 
+ public static boolean compare(String str1,String str2)  
+{ 
+ return str1.equals(str2); 
+ } 
+ } 
+ 
+Output:  
+ConcatenatedString::HelloHello
+Are thestringsequal?True
+ OR
+ Concatenated String:: HelloWorld
+ Are the strings equal? False
