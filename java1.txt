@@ -1,0 +1,601 @@
+﻿Practical No.1 
+
+Name:- Vivek Sandip Barhate 
+
+Class :- T.Y.BSc(Compute Science) 
+
+Subject:-Object Oriented Programming using Java-I 
+
+Practical Name:-Java Tools IDE and Simple Java Program 
+
+Roll No. :- 04 
+
+Batch:-C 
+
+Division :- B 
+
+Performance Date :-                                                                    Submission Date:- 
+
+ 
+
+Set A 
+
+Que.1) Write a program to calculate perimeter and area of Rectangle. (hint : 
+
+area=length*breadth, perimeter=2* (length + breadth)). 
+
+Program:- 
+
+import java.util.Scanner; 
+
+public class Area_perimeter 
+
+{ 
+
+public static void main(String[] args) 
+
+{ 
+
+int l,b,perimeter,area; 
+
+Scanner s = new Scanner(System.in); 
+
+System.out.println("Enter length of rectangle:"); 
+
+l=s.nextInt(); 
+
+System.out.println("Enter breadth of rectangle:"); 
+
+b=s.nextInt(); 
+
+perimeter=2*(l+b); 
+
+System.out.println("Perimeter of rectangle:"+perimeter); 
+
+area=l*b; 
+
+
+
+System.out.println("Area of rectangle:"+area); 
+
+} 
+
+} 
+
+Output:- 
+
+Enter length of rectangle: 
+
+5 
+
+Enter breadth of rectangle: 
+
+8 
+
+Perimeter of rectangle:26 
+
+Area of rectangle:40 
+
+Que.2) Write a menudriven program to perform the following operations 
+
+1)Calculate the volume of cylinder.(Hint:Volume:pi x r 
+
+2)Find the factorial of given number. 
+
+3)Check the number is Armstrong or Not. 
+
+4)Exit 
+
+Program: 
+
+import java.util.Scanner; 
+
+public class menudriven 
+
+{ 
+
+public static void main(String[]args) 
+
+{ 
+
+int choice; 
+
+double radius; 
+
+double height; 
+
+double volume; 
+
+Scanner sc=new Scanner(System.in); 
+
+System.out.println("1:Volume of cylinder"); 
+
+System.out.println("2:Factorial of number"); 
+
+
+
+System.out.println("3:Number is armstrong or not"); 
+
+System.out.println("4:Exit"); 
+
+lp:while(true) 
+
+{ 
+
+System.out.println("Make your choice"); 
+
+choice=sc.nextInt(); 
+
+switch(choice) 
+
+{ 
+
+case 1: 
+
+Scanner s=new Scanner(System.in); 
+
+System.out.println("Enter the radius:"); 
+
+radius=s.nextDouble(); 
+
+System.out.println("Enter the height:"); 
+
+height=s.nextDouble(); 
+
+volume=(22*(radius*radius)*height/7); 
+
+System.out.println("Volume of cylinder is:"+volume); 
+
+break; 
+
+case 2: 
+
+Scanner a=new Scanner(System.in); 
+
+System.out.println("Enter the number:"); 
+
+int num=a.nextInt(); 
+
+int i=1,fact=1; 
+
+while(i<=num) 
+
+{ 
+
+fact=fact*i; 
+
+i++; 
+
+} 
+
+System.out.println("Factorial of the number:"+fact); 
+
+
+
+break; 
+
+case 3: 
+
+int temp,totalDigit=0,res=0,rem,pow; 
+
+Scanner b=new Scanner(System.in); 
+
+System.out.println("Enter the number:"); 
+
+num=b.nextInt(); 
+
+temp=num; 
+
+while(num>0) 
+
+{ 
+
+num=num/10; 
+
+totalDigit++; 
+
+} 
+
+num=temp; 
+
+while(num>0) 
+
+{ 
+
+rem=num%10; 
+
+pow=1; 
+
+i=0; 
+
+while(i<totalDigit) 
+
+{ 
+
+pow=pow*rem; 
+
+i++; 
+
+} 
+
+res=res+pow; 
+
+num=num/10; 
+
+} 
+
+if(res==temp) 
+
+System.out.println("\n It is Armstrong Number:"); 
+
+
+
+else 
+
+System.out.println("\n Not an Armstrong number:"); 
+
+break; 
+
+case 4: 
+
+System.out.println("Exit"); 
+
+break; 
+
+} 
+
+} 
+
+} 
+
+} 
+
+Output: 
+
+1:Volume of cylinder 
+
+2:Factorial of number 
+
+3:Number is armstrong or not 
+
+4:Exit 
+
+Make your choice 
+
+1 
+
+Enter the radius: 
+
+23 
+
+Enter the height: 
+
+22 
+
+Volume of cylinder is:36576.57142857143 
+
+Make your choice 
+
+2 
+
+Enter the number: 
+
+12 
+
+Factorial of the number:479001600 
+
+Make your choice 
+
+
+
+3 
+
+Enter the number: 
+
+2223 
+
+Not an Armstrong number: 
+
+Make your choice 
+
+3 
+
+Enter the number: 
+
+434 
+
+Not an Armstrong number: 
+
+Make your choice 
+
+4 
+
+Exit 
+
+Make your choice 
+
+Set B 
+
+Que.1) Write a java program to display the system date and time in verious 
+
+formats in shown below: 
+
+Current Date is:31/08/2021 
+
+Current Date is:08-31-2021 
+
+Current Date is:Tuesday August 31 2021 
+
+Current Date and Time is:Fri August 31 15:25:59 IST 2021 
+
+Current Date and Time is:31/08/2021 15:25:59 PM +0530 
+
+Current Time is:15:25:59 
+
+Current week of year is:35 
+
+Current week of month is:5 
+
+Current day of the year is:243 
+
+Note:Use java.util.Date and java.text.SimpleDateFormat class 
+
+Program: 
+
+import java.text.ParseException; 
+
+
+
+import java.text.SimpleDateFormat; 
+
+import java.util.Date; 
+
+public class dateformat 
+
+{ 
+
+public static void main(String []args) 
+
+{ 
+
+Date date =new Date(); 
+
+SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy"); 
+
+String strDate=formatter.format(date); 
+
+System.out.println("current date is:"+strDate); 
+
+formatter=new SimpleDateFormat("MM/dd/yyyy"); 
+
+strDate=formatter.format(date); 
+
+System.out.println("current date is:"+strDate); 
+
+formatter=new SimpleDateFormat("EEEEEE MMMM dd yyyy"); 
+
+strDate=formatter.format(date); 
+
+System.out.println("current date is:"+strDate); 
+
+formatter=new SimpleDateFormat("E MMMM dd HH:mm:ss z yyyy"); 
+
+strDate=formatter.format(date); 
+
+System.out.println("current date and time is:"+strDate); 
+
+formatter=new SimpleDateFormat("dd/MM/yy HH:mm:ss a z"); 
+
+strDate=formatter.format(date); 
+
+System.out.println("current date and time is:"+strDate); 
+
+formatter=new SimpleDateFormat("hh:mm:ss"); 
+
+strDate=formatter.format(date); 
+
+System.out.println("current timr is:"+strDate); 
+
+formatter=new SimpleDateFormat("w"); 
+
+strDate=formatter.format(date); 
+
+System.out.println("current week of year is:"+strDate); 
+
+
+
+formatter=new SimpleDateFormat("W"); 
+
+strDate=formatter.format(date); 
+
+System.out.println("current week of the month is:"+strDate); 
+
+formatter=new SimpleDateFormat("D"); 
+
+strDate=formatter.format(date); 
+
+System.out.println("current day of the year:"+strDate); 
+
+} 
+
+} 
+
+Output: 
+
+current date is:31/07/2025 
+
+current date is:07/31/2025 
+
+current date is:Thursday July 31 2025 
+
+current date and time is:Thu July 31 09:35:03 IST 2025 
+
+current date and time is:31/07/25 09:35:03 AM IST 
+
+current timr is:09:35:03 
+
+current week of year is:31 
+
+current week of the month is:5 
+
+current day of the year:212 
+
+Set C 
+
+Que.1) Write a program to accept n names of country and display them in 
+
+descending order. 
+
+Program: 
+
+import java.util.*; 
+
+public class Country1{ 
+
+public static void main(String[] args){ 
+
+Scanner scanner=new Scanner(System.in); 
+
+System.out.print("enter the no.of countries:"); 
+
+int n=scanner.nextInt(); 
+
+
+
+scanner.nextLine(); 
+
+String[] countries=new String[n]; 
+
+for(int i=0;i<n;i++) 
+
+{ 
+
+System.out.print("Enter country name"+(i+1)+":"); 
+
+countries[i]=scanner.nextLine(); 
+
+} 
+
+Arrays.sort(countries,Collections.reverseOrder()); 
+
+System.out.println("\n Countries in descending order:"); 
+
+for(int i=0;i<n;i++) 
+
+{ 
+
+System.out.println(countries[i]); 
+
+} 
+
+scanner.close(); 
+
+} 
+
+} 
+
+Output: 
+
+enter the no.of countries:4 
+
+Enter country name1:India 
+
+Enter country name2:japan 
+
+Enter country name3:africa 
+
+Enter country name4:malasia 
+
+Countries in descending order: 
+
+malasia 
+
+japan 
+
+africa 
+
+India 
+
+Que.3) Write a program to display the 1 to 15 tables. 
+
+
+
+Program: 
+
+import java.util.Scanner; 
+
+public class Table 
+
+{ 
+
+public static void main(String[]args) 
+
+{ 
+
+for(int Table=1;Table<=15;Table++) 
+
+{ 
+
+for(int i=1;i<=10;i++) 
+
+{ 
+
+System.out.println(Table+"*"+(i)+"="+(Table*(i))); 
+
+} 
+
+System.out.println(); 
+
+} 
+
+} 
+
+} 
+
+Output: 
+
+1*1=1 
+
+1*2=2 
+
+1*3=3 
+
+1*4=4 
+
+1*5=5 
+
+1*6=6 
+
+1*7=7 
+
+1*8=8 
+
+1*9=9 
+
+1*10=10 
+
+............ 
+
+
+
+............ 
+
+15*1=15 
+
+15*2=30 
+
+15*3=45 
+
+15*4=60 
+
+15*5=75 
+
+15*6=90 
+
+15*7=105 
+
+15*8=120 
+
+15*9=135 
+
+15*10=150
