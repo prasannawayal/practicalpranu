@@ -1,0 +1,596 @@
+﻿Practical No:03 
+
+Name : Waykar Abhishek Vishwanath
+
+Class : T.Y.Bsc (Computer Science) 
+
+Div : B
+
+Roll No : 60
+
+Batch: D
+
+Subject : Web Technologies-I CS-358 
+
+Name of Practical : To Study Functions and Strings 
+
+Performance Date:                                                          Submission Date: 
+
+ 
+
+Q.1) Write a PHP script for the following: Design a form to accept a string.  
+
+a. Write a function to find the length of given string without using built in functions. 
+b. Write a function to count the total number of vowels i.e. (a,e,i,o,u) ) from the 
+string. 
+
+c. Convert the given string to lowercase and then to Title case. 
+
+d. Pad the given string with “*” from left and right both the sides.  
+
+e. Remove the leading whitespaces from the given string. 57 SET B  
+
+f. Find the reverse of given string.(use built-in functions)  
+
+(Use radio buttons and the concept of function. Use ‘include’ construct or ‘require’ 
+stmt.) 
+
+Program: 
+
+String.php 
+
+ 
+
+ <!DOCTYPE html> 
+
+<html> 
+
+<head> 
+
+<title>String Operations</title> 
+
+</head> 
+
+<body> 
+
+<h2> String Operations Form</h2> 
+
+<form method="post"> 
+
+
+
+Enter a string:<input type="text" name="inputstr" required><br><br> 
+
+<input type="radio" name="Operation" value="length" required> Find Length<br> 
+
+<input type="radio" name="Operation" value="vowels">Count Vowels<br> 
+
+<input type="radio" name="Operation" value="title">Covert to Titlecase<br> 
+
+<input type="radio" name="Operation" value="pad">Pad with *<br> 
+
+<input type="radio" name="Operation" value="trim"> Remove Leading Spaces<br> 
+
+<input type="radio" name="Operation" value="reverse"> Reverse String<br><br> 
+
+<input type="submit" name="submit" value="Perform Operation"> 
+
+</form> 
+
+<?php 
+
+if(isset($_POST['submit'])){ 
+
+require 'String_function.php'; 
+
+$str=$_POST['inputstr']; 
+
+$op=$_POST['Operation']; 
+
+echo"<h3>Result:<h3>"; 
+
+switch ($op){ 
+
+case 'length': 
+
+     echo"Length of String: ".stringlength($str); 
+
+     break; 
+
+case 'vowels': 
+
+     echo"Total vowels:".countvowels($str); 
+
+     break; 
+
+case 'title': 
+
+     echo"Title case:".convertTitleCase($str); 
+
+     break; 
+
+case 'pad': 
+
+     echo"Padding String:".padString($str); 
+
+     break; 
+
+case 'trim': 
+
+     echo"After trimming leading spaces: '".trimLeadingSpaces($str)."'"; 
+
+
+
+     break; 
+
+case 'reverse': 
+
+     echo"Reversed String:".reverseString($str); 
+
+     break;      
+
+} 
+
+} 
+
+?> 
+
+</body> 
+
+</html> 
+
+ 
+
+String_function.php 
+
+ 
+
+<?php 
+
+function stringLength($str){ 
+
+$count=0; 
+
+while(isset($str[$count])){ 
+
+$count++; 
+
+} 
+
+return $count; 
+
+} 
+
+ function countvowels($str){ 
+
+ $vowels=['a','e','i','o','u']; 
+
+ $count=0; 
+
+ $str=strtolower($str); 
+
+ for($i=0;$i<strlen($str);$i++){ 
+
+ if (in_array($str[$i],$vowels)){ 
+
+ $count++; 
+
+ } 
+
+ } 
+
+ return $count; 
+
+
+
+ } 
+
+function convertTitleCase($str) 
+
+{ 
+
+  $str=strtolower($str); 
+
+  return ucwords($str); 
+
+  }   
+
+function padString($str){ 
+
+   return str_pad($str,strlen($str)+4,"*",STR_PAD_BOTH); 
+
+   }    
+
+function trimLeadingSpaces($str){ 
+
+  return ltrim($str); 
+
+}    
+
+function reverseString($str) 
+
+{ 
+
+  return strrev($str); 
+
+} 
+
+?> 
+
+Output: 
+
+ 
+
+ 
+
+                                      
+
+     
+
+
+
+ 
+
+                                                                                
+
+                                                                                                                     
+
+                                                  
+
+                                                                  
+
+                                                                                               
+
+Q. 2) Write a PHP script for the following: Design a form to accept two strings from the 
+user. 
+
+ a. Find whether the small string appears at the start of the large string. 
+
+ b. Find the position of the small string in the big string. 
+
+ c. Compare both the string for first n characters, also the comparison should not be 
+case sensitive. 
+
+Program: 
+<!DOCTYPE html> 
+<html> 
+
+
+
+<head> 
+<title>String Operations in PHP</title> 
+</head> 
+<body> 
+<form method="post"> 
+ Large String:<input type="text" name="large_str"required><br><br> 
+ Small String:<input type="text" name="small_str"required><br><br> 
+<input type="submit" name="submit" value="Check"> 
+</form> 
+<?php 
+if(isset($_POST['submit'])) 
+{ 
+$large=$_POST['large_str']; 
+$small=$_POST['small_str']; 
+ echo"<h3>Results:</h3>"; 
+if(stripos($large,$small)===0) 
+{ 
+echo"a)The small string appears at the start of the large string.<br>"; 
+} 
+else 
+{ 
+echo"a)The small string does NOT appear at the start of the large string.<br>"; 
+} 
+$length=strlen($small); 
+if(strncasecmp($large,$small,$length)==0) 
+{ 
+echo"b) First $length characters match (case-insensitive).<br>"; 
+} 
+else 
+{ 
+echo"b) First $length characters do NOT match .<br>"; 
+} 
+$pos=stripos($large,$small); 
+if($pos!==false) 
+{ 
+echo "c)Small string found at position:".($pos+1)."(1-based index).<br>"; 
+} 
+else 
+{ 
+echo "c)Small string not found.<br>"; 
+} 
+} 
+?> 
+</body> 
+</html> 
+ 
+
+Output: 
+
+
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Q. 3)  Write a PHP script for the following: Design a form having a text box and a drop 
+down list containing any 3 separators(e.g. #, |, %, @, ! or comma) accept a strings from 
+the user and also a separator.  
+a. Split the string into separate words using the given separator.  
+b. Replace all the occurrences of separator in the given string with some other 
+separator.  
+c. Find the last word in the given string(Use strrstr() function). 
+ 
+ 
+Program: 
+ 
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title> Separator-Based String operations</title> 
+</head> 
+<body> 
+<h2>Enter String and Choose Separator</h2> 
+<form method="post"> 
+Enter String:<input type="text" name="inputStr" required><br><br> 
+Select Separator: 
+<select name="separator"required> 
+<option value="#">#</option> 
+<option value="|">|</option> 
+<option value="%">%</option> 
+</select><br><br> 
+Enter New Separator(for replacment):<input type="text" name="newSeparator" 
+required><br><br> 
+<input type="submit" name="submit" value="Process String"> 
+</form> 
+<?php 
+ if($_SERVER["REQUEST_METHOD"]=="POST") 
+{ 
+ $inputStr=$_POST['inputStr']; 
+$separator=$_POST['separator']; 
+$newSeparator=$_POST['newSeparator']; 
+echo"<h3>Result:</h3>"; 
+
+
+
+$words=explode($separator,$inputStr); 
+echo"a)Words after splitting:<br>"; 
+foreach($words as $word) 
+{ 
+echo htmlspecialchars($word)."<br>"; 
+} 
+$replacedStr=str_replace($separator,$newSeparator,$inputStr); 
+echo"<br>b)String after replacing '$separator' with '$newSeparator':<br>"; 
+echo htmlspecialchars($replacedStr)."<br>"; 
+$lastPart=strrchr($inputStr,$separator); 
+if($lastPart!==false) 
+{ 
+ $lastWord=ltrim($lastPart,$separator); 
+echo"<br>c) Last word in the string:".htmlspecialchars($lastWord)."<br>"; 
+} 
+else{ 
+echo"<br>c) Separator not found in the string.<br>"; 
+} 
+} 
+?> 
+</body> 
+</html> 
+Output: 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Q 4) Write a PHP script for the following: Design a form to accept the marks of 5 
+different subjects of a student, having serial number, subject name & marks out of 100. 
+Display the result in the tabular format which will have total, percentage and grade. Use 
+only 3 text boxes.(Use array of form parameters) 
+
+Program: 
+
+<!DOCTYPE html> 
+<html> 
+
+
+
+<head> 
+<title>Student Marks Result</title> 
+</head> 
+<body> 
+  <h2>Enter Student Marks</h2> 
+  <form method="post"> 
+    Serial Numbers(comma separated): 
+   <input type="text" name="serial" required><br><br> 
+   Subject Names(comma separated): 
+   <input type="text" name="subjects" required><br><br> 
+    Marks out of 100(comma separated): 
+   <input type="text" name="marks" required><br><br> 
+     <input type="submit" name="submit" value="Show Result"> 
+  </form> 
+<?php 
+if(isset($_POST['submit'])) 
+{ 
+  $serials=explode(",",$_POST['serial']); 
+  $subjects=explode(",",$_POST['subjects']); 
+  $marks=explode(",",$_POST['marks']); 
+$total=array_sum($marks); 
+$percentage=($total/(count($marks)*100))*100; 
+if($percentage>=90) 
+{ 
+  $grade="A+"; 
+} 
+elseif($percentage>=80) 
+{ 
+  $grade="A"; 
+} 
+elseif($percentage>=70) 
+{ 
+  $grade="B"; 
+} 
+elseif($percentage>=60) 
+{ 
+  $grade="C"; 
+} 
+elseif($percentage>=50) 
+{ 
+  $grade="D"; 
+}else{ 
+   $grade="Fail"; 
+} 
+echo "<h2>Result</h2>"; 
+echo "<table border='1' cellpadding='8' cellspacing='0'>"; 
+echo "<tr><th>Serial No</th><th>Subject</th><th>Marks</th></tr>"; 
+for($i=0;$i<count($subjects);$i++){ 
+echo "<tr> 
+   <td>{$serials[$i]}</td> 
+
+
+
+   <td>{$subjects[$i]}</td> 
+   <td>{$marks[$i]}</td> 
+   </tr>"; 
+} 
+echo "<tr><td colspan='2'><b>Total</b></td><td><b>$total</b></td></tr>"; 
+echo "<tr><td colspan='2'><b>Percentage</b></td><td><b>$percentage%</b></td></tr>"; 
+echo "<tr><td colspan='2'><b>Grade</b></td><td><b>$grade</b></td></tr>"; 
+echo "</table>"; 
+} 
+?> 
+</body> 
+</html> 
+ 
+
+Output: 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Q 5) Write a PHP script to accept 2 strings from the user, the first string should be a 
+sentence and second can be a word.  
+
+
+
+a. Delete a small part from first string after accepting position and number of 
+characters to remove. 
+
+ b. Insert the given small string in the given big string at specified position without 
+removing any characters from the big string.  
+
+c. Replace some characters/ words from given big string with the given small string at 
+specified position.  
+
+d. Replace all the characters from the big string with the small string after a specified 
+position. (Use substr_replace() function). 
+
+ 
+
+Program: 
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>String Operations using substr_replace()</title> 
+</head> 
+<body> 
+<h2>String Operations</h2> 
+<form method="post"> 
+Enter Sentence(Big String): 
+<input type="text" name="big" size="50" required><br><br> 
+Enter Small String(Word): 
+<input type="text" name="small" size="20" required><br><br> 
+Enter Position(starting index): 
+<input type="number" name="pos" required><br><br> 
+Enter Number of Characters to Remove(for part a and c): 
+<input type="number" name="len" value="0"><br><br> 
+<input type="submit" name="submit" value="Show Result"> 
+</form> 
+<?php 
+if(isset($_POST['submit'])) 
+{ 
+ $big=$_POST['big']; 
+ $small=$_POST['small']; 
+ $pos=$_POST['pos']; 
+ $len=$_POST['len']; 
+echo"<h3>Original Big String:$big</h3>"; 
+echo"<h3>Small string:$small</h3>"; 
+echo"<hr>"; 
+$delete=substr_replace($big,"",$pos,$len); 
+echo"<b>a)After Deletion:</b>$delete<br><br>"; 
+$insert=substr_replace($big,$small,$pos,0); 
+echo"<b>b)After Insertion:</b>$insert<br><br>"; 
+$replace=substr_replace($big,$small,$pos,$len); 
+echo"<b>c)After Replacing:</b>$replace<br><br>"; 
+$replaceAll=substr_replace($big,$small,$pos); 
+echo"<b>d)After Replacing All After Position:</b>$replaceAll<br><br>"; 
+
+
+
+} 
+?> 
+</body> 
+</html> 
+ 
+Output :-

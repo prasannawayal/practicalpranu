@@ -1,0 +1,299 @@
+﻿Assignment No. 1 
+ 
+
+Name :- Wayal Prasanna Ganesh
+Class :- T.Y.Bsc(Computer Science). 
+Roll No :- 59
+Div :- B 
+Batch :- D 
+Name of Practical :- The Data Science Environment 
+Practical Date :-     /     /                    Submission Date :-     /     /     
+
+ 
+
+Set A:- 
+
+Que.1) Write a Python program to create a dataframe containing columns name, age and 
+percentage. Add 10 rows to the dataframe. View the dataframe 
+
+Program:- import pandas as pd 
+
+data={'name':['Sahil','sai','om','rushi','rushikesh','rahul','mahesh','suresh','omkar','shantanu'
+], 
+
+      'age':[19,20,23,22,21,23,34,16,27,31], 
+
+      'Percentage':[98.98,87.87,76.87,87.76,65.76,46.09,99.87,65.87,56.43,99.99] 
+
+     } 
+
+df=pd.DataFrame(data) 
+
+print(df) 
+
+Output:- 
+
+  
+Que.2) Write a Python program to view basic statistical details of the data. 
+Program:- import pandas as pd 
+
+data={'name':['Sahil','sai','om','rushi','rushikesh','rahul','mahesh','suresh','omkar','shantanu'
+], 
+
+      'age':[19,20,23,22,21,23,34,16,27,31], 
+
+
+
+      'Percentage':[98.98,87.87,76.87,87.76,65.76,46.09,99.87,65.87,56.43,99.99] 
+
+     } 
+
+df=pd.DataFrame(data) 
+
+statistical_details=df.describe() 
+
+print("Statistical_details:") 
+
+print(statistical_details) 
+
+Output:-  
+
+ 
+
+Que.3) Write a Python program to drop ‘remarks’ column from the dataframe. Also drop 
+all null and empty values. Print the modified data. 
+
+Program:- import pandas as pd 
+
+data={'name':['Sahil','sai','om','rushi','rushikesh','rahul','mahesh','suresh','omkar','shantanu'
+], 
+
+           'age':[19,20,np.nan,22,21,23,34,16,27,31], 
+
+      'Percentage':[98.98,87.87,76.87,87.76,65.76,46.09,99.87,65.87,56.43,99.99], 
+
+      'remark':['','good','','excelent','bad','','','good','bad','very good'] 
+
+      } 
+
+df=pd.DataFrame(data) 
+
+df=df.drop(columns=['remark']) 
+
+df=df.dropna() 
+
+print(df) 
+
+Output:- 
+
+      name   age   Percentage 
+0      Sahil    19       98.98 
+1        sai      20       87.87 
+
+
+
+3      rushi       22       87.76 
+4   rushikesh   21       65.76 
+5      rahul       23       46.09 
+6     mahesh    34       99.87 
+7     suresh      16       65.87 
+8      omkar     27       56.43 
+9   shantanu    31       99.99 
+ 
+
+Que.4) Write a Python program to generate a line plot of name vs percentage 
+
+Program:- import pandas as pd 
+
+import matplotlib.pyplot as plt 
+
+data={'name':['Sahil','sai','om','rushi','rushikesh','rahul','mahesh','suresh','omkar','shantanu'
+], 
+
+      'age':[19,20,23,22,21,23,34,16,27,31], 
+
+      'Percentage':[98.98,87.87,76.87,87.76,65.76,46.09,99.87,65.87,56.43,99.99] 
+
+     } 
+
+df=pd.DataFrame(data) 
+
+plt.figure(figsize=(10,6)) 
+
+plt.plot(df['name'],df['Percentage'],marker='o',linestyle='-',color='r') 
+
+plt.title("name vs persentage") 
+
+plt.xlabel('name') 
+
+plt.ylabel('percentage') 
+
+plt.xticks(rotation=45) 
+
+plt.grid(True) 
+
+plt.show() 
+
+
+
+Output:- 
+
+ 
+
+ 
+
+Que.5) Write a Python program to generate a scatter plot of name vs percentage 
+
+Program:- import pandas as pd 
+
+import matplotlib.pyplot as plt 
+
+data={'name':['Sahil','sai','om','rushi','rushikesh','rahul','mahesh','suresh','omkar','shantanu'
+], 
+
+      'age':[19,20,23,22,21,23,34,16,27,31], 
+
+      'Percentage':[98.98,87.87,76.87,87.76,65.76,46.09,99.87,65.87,56.43,99.99] 
+
+     } 
+
+df=pd.DataFrame(data) 
+
+plt.figure(figsize=(10,6)) 
+
+plt.plot(df['name'],df['Percentage'],marker='o',linestyle='',color='r') 
+
+plt.title("name vs persentage") 
+
+plt.xlabel('name') 
+
+plt.ylabel('percentage') 
+
+plt.xticks(rotation=45) 
+
+plt.grid(True) 
+
+plt.show() 
+
+Output:- 
+
+
+
+ 
+
+Set B:- 
+
+Que.1)Download the heights and weights dataset and load the dataset from a given csv file 
+into a dataframe. Print the first, last 10 rows and random 20 rows. 
+(https://www.kaggle.com/burnoutminer/heights and-weights-dataset) 
+
+Program:- import pandas as pd  
+
+csv_file_path="file:/C:/Users/samarth/Downloads/SOCR-HeightWeight(1).csv" 
+df=pd.read_csv(csv_file_path)  
+
+print("First 10 Rows")  
+
+print(df.head(10)) 
+
+ 
+
+print("Last 10 Rows")  
+
+print(df.tail(10)) 
+
+
+
+  
+print ("\n Random 20 rows")  
+
+print(df.sample(20)) 
+
+ 
+
+ 
+Que.2) Write a Python program to find the shape, size, datatypes of the dataframe object. 
+
+Program:- print(df.shape) 
+
+ (25000, 3) 
+
+print(df.columns) 
+
+Index(['Index', 'Height(Inches)', 'Weight(Pounds)'], dtype='object' 
+
+print("the no of rows are:",df.shape[0]) 
+
+the no of rows are: 25000 
+
+print("the no of columns are:",df.shape[1]) 
+
+
+
+the no of columns are: 3 
+
+print("the size of dataframe:",df.size) 
+
+the size of dataframe: 75000 
+
+print("the data types in the given Dtaframe are:\n",df.dtypes) 
+
+the data types in the given Dtaframe are: 
+Index int64 
+Height(Inches) float64 
+Weight(Pounds) float64 
+dtype: object 
+
+Que.3) Write a Python program to view basic statistical details of the data. 
+
+Program:- import pandas as pd 
+data={ 
+'name':['alice','Bob','charlie'], 
+'age':[25,34,22], 
+'salary':[50000,60000,40000] 
+} 
+df=pd.DataFrame(data) 
+statistical_details=df.describe() 
+
+print("Basic statistical details:\n",statistical_details) 
+
+Output:- 
+
+ 
+
+Que.4) Write a Python program to add a column to the dataframe “BMI” which is 
+calculated as : weight/height2  
+
+Program:- import pandas as pd 
+data={ 
+'name':['alice','Bob','charlie'], 
+'Wight':[60,70,75], 
+
+
+
+'Height':[1.65,1.75,1.89] 
+} 
+df=pd.DataFrame(data) 
+df['BMI']=df['Wight']/(df['Height']**2) 
+print(df) 
+
+Output:- 
+
+ 
+
+Que.5) Write a Python program to find the maximum and minimum BMI. 
+
+Program:- import pandas as pd 
+data={ 
+'name':['alice','Bob','charlie'], 
+'Wight':[60,70,75], 
+'Height':[1.65,1.75,1.89] 
+} 
+df=pd.DataFrame(data) 
+df['BMI']=df['Wight']/(df['Height']**2) 
+
+ print("the maximum BMI is\n",df.max()) 
+
+ 
+
+print("the minimum BMI is\n",df.min())

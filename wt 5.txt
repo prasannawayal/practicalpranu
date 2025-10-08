@@ -1,0 +1,516 @@
+﻿AssignmentNo.5
+
+Name: Wayal Prasanna Ganesh
+Class:T.Y.B.Sc(ComputerScience)
+Div :B
+Batch:D
+RollNo : 59
+AssignmentName:TostudyFilesandDatabase(PHP-PostgreSQL)
+
+Performance Date: Submission Date:
+
+Set A 
+Que.1)Write a program to read one file and display the contents of the file with its size. 
+Program: 
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Read File and Display Contents with Size</title> 
+</head> 
+<body> 
+<h2>Read File and Display Contents with Size</h2> 
+<?php 
+$filename="example.txt"; 
+if(file_exists($filename)) 
+{ 
+$filesize=filesize($filename); 
+echo"<p><strong>File Name:</strong>$filename</p>"; 
+echo"<p><strong>File Size:</strong>$filesize bytes</p>"; 
+$content=file_get_contents($filename); 
+echo"<h3>File Contents:</h3>"; 
+echo"<pre>$content</pre>"; 
+} 
+else{ 
+echo"<p style='color:red;'File Does not Exit.</p>"; 
+} 
+?> 
+</body> 
+</html> 
+example.txt 
+T.Y.B.Sc(Computer Science) 
+
+ 
+Output: 
+
+
+
+ 
+
+Que.2) Consider the following entities and their relationships Event (eno , title , date ) 
+Committee ( cno , name, head , from_time ,to_time , status) Event and Committee have many 
+to many relationship. Write a script to accept title of event and modify status committee as 
+working. 
+
+ 
+mysql> CREATE DATABASE IF NOT EXISTS tybcs1; 
+Query OK, 1 row affected (0.00 sec) 
+
+ 
+mysql> USE tybcs1; 
+Database changed 
+mysql> CREATE TABLE Event ( 
+
+-> eno INT PRIMARY KEY, 
+-> title VARCHAR(100), 
+-> date DATE 
+-> ); 
+
+Query OK, 0 rows affected (0.02 sec) 
+
+mysql> CREATE TABLE Committee ( 
+-> cno INT PRIMARY KEY, 
+-> name VARCHAR(100), 
+-> head VARCHAR(100), 
+-> from_time TIME, 
+-> to_time TIME, 
+-> status VARCHAR(50) 
+-> ); 
+
+Query OK, 0 rows affected (0.01 sec) 
+ 
+
+mysql> CREATE TABLE EventCommittee ( 
+-> eno INT, 
+-> cno INT, 
+-> PRIMARY KEY (eno, cno), 
+-> FOREIGN KEY (eno) REFERENCES Event(eno), 
+-> FOREIGN KEY (cno) REFERENCES Committee(cno) 
+-> ); 
+
+Query OK, 0 rows affected (0.02 sec) 
+
+mysql> INSERT INTO Event VALUES (1,'TechFest','2025-09-30'); 
+Query OK, 1 row affected (0.01 sec) 
+
+mysql> INSERT INTO Event VALUES (2,'CulturalFest','2025-10-10'); 
+
+
+
+Query OK, 1 row affected (0.01 sec) 
+ 
+
+mysql> INSERT INTO Committee VALUES 
+-> (101, 'Hospitality', 'John', '09:00:00', '17:00:00', 'pending'), 
+-> (102, 'Logistics', 'Mary', '10:00:00', '18:00:00', 'pending'), 
+-> (103, 'Sponsorship', 'Rahul', '11:00:00', '16:00:00', 'pending'); 
+
+Query OK, 3 rows affected (0.01 sec) 
+Records: 3 Duplicates: 0 Warnings: 0 
+
+ 
+mysql> INSERT INTO EventCommittee VALUES (1,101),(1,102),(2,103); 
+Query OK, 3 rows affected (0.00 sec) 
+Records: 3 Duplicates: 0 Warnings: 0 
+
+ 
+mysql> select*from Event; 
++ + + + 
+| eno | title | date | 
++ + + + 
+|  1 | TechFest | 2025-09-30 | 
+|  2 | CulturalFest | 2025-10-10 | 
++ + + + 
+2 rows in set (0.00 sec) 
+
+ 
+mysql> select*from Committee; 
++ + + + + + + 
+| cno | name | head | from_time | to_time | status | 
++ + + + + + + 
+| 101 | Hospitality | John | 09:00:00 | 17:00:00 | pending | 
+| 102 | Logistics  | Mary | 10:00:00 | 18:00:00 | pending | 
+| 103 | Sponsorship | Rahul | 11:00:00 | 16:00:00 | pending | 
++ + + + + + + 
+3 rows in set (0.00 sec) 
+
+ 
+mysql> select*from EventCommittee; 
++ + + 
+| eno | cno | 
++-----+ ---- + 
+|  1 | 101 | 
+|  1 | 102 | 
+|  2 | 103 | 
++ + + 
+3 rows in set (0.00 sec) 
+
+ 
+HTML Program: 
+<html> 
+<head> 
+<title> </title> 
+</head> 
+<body> 
+<form action="modify.php" method="post"> 
+
+Enter Event Title: <input type="text" name="title"> 
+<input type="submit" value="Update Status"> 
+
+</form> 
+
+
+
+</body> 
+</html> 
+
+ 
+PHP Program: 
+
+ 
+<?php 
+$con = mysqli_connect("localhost", "root", "samarth", "tybcs1") 
+
+or die("Unable to connect: " . mysqli_connect_error()); 
+// accept event title from user 
+$title = $_POST['title']; 
+// update committees linked with the given event 
+$query = "UPDATE Committee 
+
+SET status='working' 
+WHERE cno IN ( 
+
+SELECT ec.cno 
+FROM Event e 
+JOIN EventCommittee ec ON e.eno = ec.eno 
+WHERE e.title = '$title' 
+
+)"; 
+$q = mysqli_query($con, $query) or die("Error: " . mysqli_error($con)); 
+if ($q) { 
+
+echo "Committee status updated successfully for event: " . $title; 
+} 
+mysqli_close($con); 
+?> 
+
+ 
+Output: 
+
+ 
+
+ 
+Committee status updated successfully for event: TechFest 
+
+ 
+ 
+
+mysql> select*from Committee; 
++ + + + + + + 
+| cno | name | head | from_time | to_time | status | 
++ + + + + + + 
+| 101 | Hospitality | John | 09:00:00 | 17:00:00 | working | 
+| 102 | Logistics  | Mary | 10:00:00 | 18:00:00 | working | 
+| 103 | Sponsorship | Rahul | 11:00:00 | 16:00:00 | pending | 
++ + + + + + + 
+3 rows in set (0.00 sec) 
+
+ 
+Set B 
+Que.1)Write a program to read a flat file “item.dat”, which contains details of 5 different 
+items such as Item code, Item Name, unit sold, and Rate. Display the Bill in tabular format. 
+Program: 
+<?php 
+$filename="item.dat"; 
+$file=fopen($filename,"r") or die("Unable to open file!"); 
+echo"<h2>Bill Details</h2>"; 
+echo"<table border='1' cellpadding='8' cellspacing='0'>"; 
+
+
+
+echo"<tr> 
+<th>Item Code</th> 
+<th>Item Name</th> 
+<th>Units Sold</th> 
+<th>Rate</th> 
+<th>Total</th> 
+</tr>"; 
+
+while(($line=fgets($file))!==false) 
+{ 
+$data=explode(",",trim($line)); 
+$itemCode=$data[0]; 
+$itemName=$data[1]; 
+$unitsSold=(int)$data[2]; 
+$rate=(float)$data[3]; 
+$total=$unitsSold*$rate; 
+echo"<tr> 
+
+<td>$itemCode</td> 
+<td>$itemName</td> 
+<td>$unitsSold</td> 
+<td>$rate</td> 
+<td>$total</td> 
+<tr>"; 
+
+} 
+echo "</table>"; 
+
+fclose($file); 
+?> 
+
+ 
+item.dat 
+100,Pen ,5,50 
+200,Book,3,30 
+300,Notebook,6,60 
+400,Pencil,7,70 
+500,Scale,8,80 
+
+ 
+Output: 
+
+
+
+Que.2)Considerer the following entities and their relationships Student (Stud_id,name,class) 
+Competition (c_no,c_name,type) Relationship between student and competition is many-many 
+with attribute rank and year. Create a RDB in 3NF for the above and solve the following. 
+Using above database write a script in PHP to accept a competition name from user and 
+display information of student who has secured 1st rank in that competition 
+
+ 
+mysql> CREATE TABLE Student ( 
+
+-> stud_id INT PRIMARY KEY, 
+-> name VARCHAR(100), 
+-> class VARCHAR(20) 
+-> ); 
+
+Query OK, 0 rows affected (0.02 sec) 
+ 
+
+mysql> CREATE TABLE Competition ( 
+-> c_no INT PRIMARY KEY, 
+-> c_name VARCHAR(100), 
+-> type VARCHAR(50) 
+-> ); 
+
+Query OK, 0 rows affected (0.01 sec) 
+ 
+
+mysql> CREATE TABLE StudentCompetition(stud_id INT NOT NULL,c_no INT NOT 
+NULL,position INT,comp_year YEAR, 
+
+-> PRIMARY KEY (stud_id, c_no,comp_year), 
+-> FOREIGN KEY (stud_id) REFERENCES Student(stud_id),FOREIGN KEY (c_no) 
+
+REFERENCES Competition(c_no)); 
+Query OK, 0 rows affected (0.02 sec) 
+
+ 
+mysql> INSERT INTO Student VALUES (1, 'Rahul', 'FYBSc'),(2, 'Priya', 'SYBSc'),(3, 'Amit', 
+'TYBSc'); 
+Query OK, 3 rows affected (0.01 sec) 
+Records: 3 Duplicates: 0 Warnings: 0 
+
+ 
+mysql> INSERT INTO Competition VALUES (101, 'Coding Contest', 'Technical'),(102, 'Dance 
+Battle', 'Cultural'); 
+Query OK, 2 rows affected (0.01 sec) 
+Records: 2 Duplicates: 0 Warnings: 0 
+
+ 
+mysql> INSERT INTO StudentCompetition VALUES(1, 101, 1, 2025),(2, 101, 2, 2025),(3, 102, 1, 
+2025); 
+Query OK, 3 rows affected (0.00 sec) 
+Records: 3 Duplicates: 0 Warnings: 0 
+
+ 
+mysql> select*from Student; 
++ + + + 
+| stud_id | name | class | 
++ + + + 
+| 1 | Rahul | FYBSc | 
+| 2 | Priya | SYBSc | 
+| 3 | Amit | TYBSc | 
++ + + + 
+3 rows in set (0.00 sec) 
+
+
+
+mysql> select*from Competition; 
++ + + + 
+| c_no | c_name | type | 
++ + + + 
+| 101 | Coding Contest | Technical | 
+| 102 | Dance Battle  | Cultural | 
++ + + + 
+2 rows in set (0.00 sec) 
+
+ 
+mysql> select*from StudentCompetition; 
++ + + + + 
+| stud_id | c_no | position | comp_year | 
++ + + + + 
+| 1 | 101 | 1 | 2025 | 
+| 2 | 101 | 2 | 2025 | 
+| 3 | 102 | 1 | 2025 | 
++ + + + + 
+3 rows in set (0.00 sec) 
+
+HTML Program: 
+<html> 
+<body> 
+<form action="winner.php" method="post"> 
+
+Enter Competition Name: <input type="text" name="cname"> 
+<input type="submit" value="Find Winner"> 
+
+</form> 
+</body> 
+</html> 
+
+ 
+PHP Program: 
+<?php 
+// Connect to database 
+$con = mysqli_connect("localhost", "root", "samarth", "tybcs1") or die("Connection failed: " . 
+mysqli_connect_error()); 
+// Check if form submitted 
+if (isset($_POST['cname'])) { 
+
+$cname = $_POST['cname']; 
+// Query to find student with 1st rank 
+$query = "SELECT s.stud_id, s.name, s.class, sc.comp_year 
+
+FROM Student s 
+JOIN StudentCompetition sc ON s.stud_id = sc.stud_id 
+JOIN Competition c ON sc.c_no = c.c_no 
+WHERE c.c_name = '$cname' AND sc.position = 1"; 
+
+$result = mysqli_query($con, $query); 
+if (mysqli_num_rows($result) > 0) { 
+
+while ($row = mysqli_fetch_assoc($result)) { 
+echo "ID: ".$row['stud_id']." - Name: ".$row['name']." - Class: ".$row['class']." - Year: 
+
+".$row['comp_year']."<br>"; 
+} 
+
+} else { 
+echo "No student found with 1st rank in $cname."; 
+
+} 
+
+
+
+} 
+mysqli_close($con); 
+?> 
+Output: 
+
+ 
+ 
+ 
+ 
+
+ID: 1 - Name: Rahul - Class: FYBSc - Year: 2025 
+ 
+ 
+ 
+
+ID: 3 – Name: Amit - Class: TYBSc - Year: 2025 
+
+Set C 
+Que.1) Write a menu driven program to perform various file operations. Accept filename 
+from user. a) Display type of file. 
+
+b) Display last access time of file 
+c) Display the size of file d) Delete the file 
+
+Program: 
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title> File Operations Menu </title> 
+</head> 
+<body> 
+<h2>File Operations Menu</h2> 
+<form method="post"> 
+Enter filename(with path if not in same folder): 
+<input type="text"name="filename"required> 
+<br><br> 
+<select name="choice"required> 
+<option value="1">1.Display type of file</option> 
+<option value="2">2.Display last access time of file</option> 
+<option value="3">3.Display size of file</option> 
+<option value="4">4.Delete the file</option> 
+</select> 
+<br><br> 
+<input type="submit"value="Submit"> 
+</form> 
+<?php 
+if($_SERVER["REQUEST_METHOD"]=="POST") 
+{ 
+$filename=$_POST['filename']; 
+$choice=$_POST['choice']; 
+switch($choice) 
+{ 
+case 1: 
+if(file_exists($filename)) 
+{ 
+$ext=pathinfo($filename,PATHINFO_EXTENSION); 
+
+
+
+if($ext=="") 
+{ 
+echo"<p>File has no extension(Unknown type).</p>"; 
+} 
+else 
+{ 
+echo"<p>File type:.$ext</p>"; 
+} 
+} 
+else 
+{ 
+echo"<p>File does not exist.</p>"; 
+} 
+break; 
+case 2: 
+if(file_exists($filename)) 
+{ 
+$lastAccess=fileatime($filename); 
+echo"<p>Last access time:".date("d-m-Y H:i:s",$lastAccess)."</p>"; 
+} 
+else 
+{ 
+echo"<p>File does not exist.</p>"; 
+} 
+break; 
+case 3: 
+if(file_exists($filename)) 
+{ 
+$size=filesize($filename); 
+echo"<p>File size:$size bytes</p>"; 
+} 
+else 
+{ 
+echo"<p>File does not exist.</p>"; 
+} 
+break; 
+case 4: 
+if(file_exists($filename)) 
+{ 
+unlink($filename); 
+echo"<p>File Delete Successfully.</p>"; 
+} 
+else 
+{ 
+echo"<p>File does not exist.</p>"; 
+} 
+break; 
+} 
+} 
+?> 
+</body> 
+</html>

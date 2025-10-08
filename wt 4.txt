@@ -1,0 +1,457 @@
+﻿Assignment No.:- 4 
+ 
+Name :- Wayal Prasanna Ganesh
+Class :- T.Y.B.Sc (Computer Science) 
+Div :- B 
+Roll No. :-59
+Batch :- D 
+Subject :- CS-358 Web Technology Practical 
+Practical Name :- To Study Arrays 
+Performance Date :-                                         Submission Date :-  
+ 
+Set-A 
+Que.1) Create your array of 30 high temperatures, approximating the weather 
+for a spring month, then find the average high temp, the five warmest high 
+temps and the five coolest high temps. Display the result on the browser. Hint: a) 
+Use array_slice b) the HTML character entity for the degree sign is & deg;. 
+ 
+Program :- 
+ 
+<!DOCTYPE html> 
+<html> 
+<head> 
+ <title>Spring Month Temperatures</title> 
+</head> 
+<body> 
+<?php 
+  //step 1: 
+  $temps=array(22,25,24,28,30,27,26,29,31,20,23, 
+             24,28,29,32,25,26,30,33,27, 
+            22,21,29,30,31,28,24,25,32,34); 
+  //step 2: 
+  $average=array_sum($temps)/count($temps);   
+  //step 3: Descenging order 
+  $sortedTemps=$temps; 
+  rsort($sortedTemps); 
+  $warmest=array_slice($sortedTemps,0,5); 
+  //step 4: Ascending Order 
+  sort($sortedTemps); 
+  $coolest=array_slice($sortedTemps,0,5); 
+  //step 5:Display the results 
+  echo "<h2>Spring Month Temperatures</h2>";     
+  echo "<p><b>Avearge High Temp:</b>".round($average,2)."&deg;C</p>"; 
+  echo "<p><b>Five Warmest High Temps:</b>"; 
+  echo implode("&deg;C",$warmest)."&deg;C</p>";     
+  echo "<p><b>Five Coolest High Temps:</b>"; 
+
+
+
+  echo implode("&deg;C",$coolest)."&deg;C</p>"; 
+?> 
+</body> 
+</html> 
+ 
+Output :- 
+
+Spring Month Temperatures 
+Avearge High Temp:27.17°C 
+Five Warmest High Temps:34°C33°C32°C32°C31°C 
+Five Coolest High Temps:20°C21°C22°C22°C23°C 
+ 
+ 
+Que.2 ) Write a menu driven program to perform the following stack and queue 
+related  
+operations:[Hint: use Array_push(), Array_pop(), Array_shift(), 
+Array_unshift() ]  
+a) Insert an element in stack  
+b) Delete an element from stack  
+c) Display the contents of stack  
+d) Insert an element in queue  
+e) Delete an element from queue  
+f) Display the contents of queue 
+ 
+Program :- 
+ 
+<!DOCTYPE html> 
+<html> 
+<head> 
+ <title>stack and Queue Operations</title> 
+</head> 
+<body> 
+  <h2>Menu Driven Program: Stack and Queue</h2> 
+  <form method="post"> 
+  <h3>Choose Operation</h3> 
+  <label><input type="radio"name="choice"value="1">a)Insert an element in 
+stack</label><br> 
+  <label><input type="radio"name="choice"value="2">b)Delete an element from 
+stack</label><br> 
+  <label><input type="radio"name="choice"value="3">c)Display the content of 
+stack</label><br> 
+  <label><input type="radio"name="choice"value="4">d)Insert an element in 
+Queue</label><br> 
+  <label><input type="radio"name="choice"value="5">e)Delete an element from 
+Queue</label><br> 
+
+
+
+  <label><input type="radio"name="choice"value="6">f)Display the content of 
+Queue</label><br><br> 
+  Enter Element(if required):<input type="text"name="element"><br><br> 
+  <input type="submit"value="Perform Operation"> 
+  </form> 
+  <?php 
+  session_start(); 
+  if(!isset($_SESSION['stack'])){ 
+    $_SESSION['stack']=array(); 
+  } 
+  if(!isset($_SESSION['queue'])){ 
+    $_SESSION['queue']=array(); 
+  } 
+  if($_SERVER["REQUEST_METHOD"]=="POST") 
+  { 
+    $choice=$_POST['choice']?? ''; 
+    $element=$_POST['element']??''; 
+    switch($choice) 
+    { 
+       case 1://insert in stack 
+       if($element !="") 
+      { 
+         array_push($_SESSION['stack'],$element); 
+         echo"<p>Inserted $element into stack.</p>"; 
+      } 
+      else 
+      { 
+         echo"<p>Please enter an element.</p>"; 
+      } 
+      break; 
+      case 2://delete from stack 
+      if(!empty($_SESSION['stack'])){ 
+        $deleted=array_pop($_SESSION['stack']); 
+        echo"<p>Deleted $deleted from stack.</p>"; 
+      } 
+      else 
+      { 
+         echo"<p>Stack is empty.</p>"; 
+      } 
+      break; 
+      case 3://Display stack 
+      if(!empty($_SESSION['stack'])){ 
+      echo"<p>Stack contents:". implode(",",$_SESSION['stack'])."</p>"; 
+    } 
+    else 
+
+
+
+    { 
+       echo"<p>Stack is empty.</p>"; 
+     } 
+     break; 
+     case 4://insert in queue 
+     if($element !=""){ 
+     array_push($_SESSION['queue'],$element); 
+     echo"<p>Inserted $element into queue.</p>"; 
+   } 
+    else 
+   { 
+      echo"<p>Please enter an element.</p>"; 
+   } 
+   break; 
+   case 5: 
+   if(!empty($_SESSION['queue'])){ 
+     $deleted=array_shift($_SESSION['queue']); 
+     echo "<p>Deleted $deleted from queue.</p>"; 
+   } 
+    else 
+    { 
+       echo "<p>Queue is empty.</p>"; 
+    } 
+    break; 
+    case 6: 
+    if(!empty($_SESSION['queue'])){ 
+      echo"<p>Queue Contents:". implode(",",$_SESSION['queue'])."</p>"; 
+    } 
+    else 
+    { 
+       echo "<p>Queue is empty.</p>"; 
+    } 
+    break; 
+    default: 
+    echo"<p>Please select a valid option.</p>"; 
+   } 
+ } 
+ ?> 
+</body> 
+</html>   
+ 
+Output :- 
+ 
+
+
+
+ 
+ 
+       Inserted 4,7,3,9,2 into stack. 
+       Stack contents:4,7,3,9,2 
+       Deleted 4,7,3,9,2 from stack. 
+       Inserted 4,7,3,9,2 into queue. 
+       Queue Contents:4,7,3,9,2 
+       Deleted 4,7,3,9,2 from queue. 
+ 
+Set-B 
+ 
+Que.1 ) Write a PHP script that inserts a new item in an array at any position.  
+(hint : use array_splice()) 
+Program :- 
+ 
+<?php 
+  $fruits=array("Apple","Banana","Mango","Orange"); 
+  echo "Original Array<br><br>"; 
+  print_r($fruits); 
+  //Item to insert 
+  $new="Grapes"; 
+  $position=2; 
+  array_splice($fruits,$position,0,$new); 
+  echo "<br><br>Array After Inserting'$new' at position $position:<br><br>"; 
+  print_r($fruits); 
+?> 
+ 
+Output :- 
+ 
+Original Array 
+ 
+Array ( [0] => Apple [1] => Banana [2] => Mango [3] => Orange )  
+
+
+
+ 
+Array After Inserting'Grapes' at position 2: 
+ 
+Array ( [0] => Apple [1] => Banana [2] => Grapes [3] => Mango [4] => Orange ) 
+ 
+ 
+Que.2) Define an array. Find the elements from the array that matches the given 
+value using appropriate search function. 
+ 
+Program :- 
+ 
+<?php 
+  $numbers=array(10,20,30,40,50,30,70); 
+  $searchValue=30; 
+  $result=array_keys($numbers,$searchValue); 
+  if(!empty($result)) { 
+    echo "The value $searchValue found at positions:"; 
+    print_r($result); 
+  } 
+  else { 
+    echo "The value $searchValue not found in array:"; 
+  } 
+?> 
+ 
+Output :- 
+ 
+The value 30 found at positions:Array ( [0] => 2 [1] => 5 ) 
+ 
+ 
+Set-C 
+ 
+Que.1) Write a PHP script to sort the following associative array :   
+array("Sophia"=>"31","Jacob"=>"41","William"=>"39","Ramesh"=>"40") 
+in  
+a) ascending order sort by value  
+b) ascending order sort by Key  
+c) descending order sorting by Value  
+d) descending order sorting by Key 
+ 
+Program :- 
+ 
+<?php 
+  $age=array("Sophia"=>"31","Jacob"=>"41","Willilam"=>"39","Ramesh"=>"40"); 
+  echo "<h3>Original Array</h3>"; 
+  print_r($age); 
+
+
+
+  //a) Ascending Order sort by value 
+  asort($age); 
+  echo "<h3>a)Ascending Order sort by Value:</h3>"; 
+  print_r($age); 
+  //b) Ascending Order sort by key 
+  ksort($age); 
+  echo "<h3>b)Ascending Order sort by Key:</h3>"; 
+  print_r($age); 
+  //c) Descending Order sort by value 
+  arsort($age); 
+  echo "<h3>Descending Order sort by Value:</h3>"; 
+  print_r($age); 
+  //d) Descending Order sort by key 
+  krsort($age); 
+  echo "<h3>d)Descending Order sort by Key:</h3>"; 
+  print_r($age); 
+?> 
+ 
+Output :- 
+ 
+
+Original Array 
+Array ( [Sophia] => 31 [Jacob] => 41 [Willilam] => 39 [Ramesh] => 40 ) 
+
+a)Ascending Order sort by Value: 
+Array ( [Sophia] => 31 [Willilam] => 39 [Ramesh] => 40 [Jacob] => 41 ) 
+
+b)Ascending Order sort by Key: 
+Array ( [Jacob] => 41 [Ramesh] => 40 [Sophia] => 31 [Willilam] => 39 ) 
+
+Descending Order sort by Value: 
+Array ( [Jacob] => 41 [Ramesh] => 40 [Willilam] => 39 [Sophia] => 31 ) 
+
+d)Descending Order sort by Key: 
+Array ( [Willilam] => 39 [Sophia] => 31 [Ramesh] => 40 [Jacob] => 41 ) 
+ 
+ 
+Que.2 ) Write a menu driven program to perform the following operations on 
+associative arrays:   
+a) Split an array into chunks  
+b) Sort the array by values without changing the keys.   
+c) Filter the odd elements from an array.   
+d) Merge the given arrays.   
+e) Find the intersection of two arrays.   
+f) Find the union of two arrays.   
+g) Find set difference of two arrays. 
+ 
+Program :- 
+ 
+
+
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Associative Array Operations</title> 
+</head> 
+<body> 
+    <h2>Menu Driven Program: Associative Array Operations</h2> 
+ 
+    <form method="post"> 
+        <h3>Select Operation</h3> 
+        <label><input type="radio" name="choice" value="1"> a) Split an array into 
+chunks</label><br> 
+        <label><input type="radio" name="choice" value="2"> b) Sort the array by 
+values without changing the keys</label><br> 
+        <label><input type="radio" name="choice" value="3"> c) Filter the odd 
+elements from an array</label><br> 
+        <label><input type="radio" name="choice" value="4"> d) Merge the given 
+arrays</label><br> 
+        <label><input type="radio" name="choice" value="5"> e) Find the intersection 
+of two arrays</label><br> 
+        <label><input type="radio" name="choice" value="6"> f) Find the union of two 
+arrays</label><br> 
+        <label><input type="radio" name="choice" value="7"> g) Find set difference of 
+two arrays</label><br><br> 
+        Enter Chunk Size (only for option a): <input type="text" 
+name="size"><br><br> 
+        <input type="submit" value="Perform Operation"> 
+    </form> 
+    <?php 
+    // Sample associative arrays 
+    $array1 = array("a" => 100, "b" => 21, "c" => 32, "d" => 43, "e" => 54); 
+    $array2 = array("f" => 21, "g" => 32, "h" => 60, "i" => 43, "j" => 90); 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+        $choice = $_POST['choice'] ?? ''; 
+        $size = $_POST['size'] ?? ''; 
+        echo "<h3>Array 1: </h3>"; 
+        print_r($array1); 
+        echo "<br><h3>Array 2: </h3>"; 
+        print_r($array2); 
+        echo "<br><br>"; 
+        switch ($choice) { 
+            case 1: // Split array into chunks 
+                if ($size != "" && $size > 0) { 
+                    $chunks = array_chunk($array1, $size, true); 
+                    echo "<b>Array Chunks:</b><br>"; 
+
+
+
+                    print_r($chunks); 
+                } else { 
+                    echo "<p>Please enter a valid chunk size.</p>"; 
+                } 
+                break; 
+ 
+            case 2: // Sort by values without changing keys 
+                $sorted = $array1; 
+                asort($sorted); // maintains keys 
+                echo "<b>Sorted Array (by values, keys preserved):</b><br>"; 
+                print_r($sorted); 
+                break; 
+            case 3: // Filter odd elements 
+                $odds = array_filter($array1, function($val) { 
+                    return ($val % 2 != 0); 
+                }); 
+                echo "<b>Odd Elements:</b><br>"; 
+                print_r($odds); 
+                break; 
+            case 4: // Merge arrays 
+                $merged = array_merge($array1, $array2); 
+                echo "<b>Merged Array:</b><br>"; 
+                print_r($merged); 
+                break; 
+ 
+            case 5: // Intersection 
+                $intersection = array_intersect($array1, $array2); 
+                echo "<b>Intersection of Arrays:</b><br>"; 
+                print_r($intersection); 
+                break; 
+ 
+            case 6: // Union (combine + unique) 
+                $union = array_unique(array_merge($array1, $array2)); 
+                echo "<b>Union of Arrays:</b><br>"; 
+                print_r($union); 
+                break; 
+ 
+            case 7: // Set difference (array1 - array2) 
+                $diff = array_diff($array1, $array2); 
+                echo "<b>Difference (Array1 - Array2):</b><br>"; 
+                print_r($diff); 
+                break; 
+ 
+            default: 
+                echo "<p>Please select a valid option.</p>"; 
+
+
+
+        } 
+    } 
+    ?> 
+</body> 
+</html> 
+ 
+Output :- 
+ 
+
+ 
+ 
+
+Array 1: 
+Array ( [a] => 100 [b] => 21 [c] => 32 [d] => 43 [e] => 54 ) 
+
+Array 2: 
+Array ( [f] => 21 [g] => 32 [h] => 60 [i] => 43 [j] => 90 )  
+ 
+Sorted Array (by values, keys preserved): 
+Array ( [b] => 21 [c] => 32 [d] => 43 [e] => 54 [a] => 100 ) 
+ 
+Odd Elements: 
+Array ( [b] => 21 [d] => 43 ) 
+ 
+Merged Array: 
+Array ( [a] => 100 [b] => 21 [c] => 32 [d] => 43 [e] => 54 [f] => 21 [g] => 32 [h] => 60 [i] => 43 
+[j] => 90 ) 
+ 
+Intersection of Arrays: 
+Array ( [b] => 21 [c] => 32 [d] => 43 ) 
+ 
+Union of Arrays: 
+Array ( [a] => 100 [b] => 21 [c] => 32 [d] => 43 [e] => 54 [h] => 60 [j] => 90 ) 
+ 
+Difference (Array1 - Array2): 
+Array ( [a] => 100 [e] => 54 )

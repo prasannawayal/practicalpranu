@@ -1,0 +1,298 @@
+﻿Practical No 2 
+ 
+Name: Wayal Prasanna Ganesh
+Class: T.Y.BSc(Computer Science)
+Batch: D Div: B
+Roll no : 59
+Subject: Foundation of Data Science
+Practical name: Statistical Data Analysis 
+Practical Date:   /   /2025  Submission Date:   /   /2025 
+ 
+Set A 
+Q1)Write a Python program to find the maximum and minimum value of the 
+given flattened array. 
+Program 
+>>> import numpy as np 
+>>> arr=np.array([[1,2,3],[4,5,6]]) 
+>>> flat_arr=arr.flatten() 
+>>> print("Flattened array:",flat_arr) 
+>>> weights=np.array([0.1,0.2,0.3,0.15,0.15,0.1]) 
+>>> weight_avg=np.average(flat_arr,weights=weights) 
+>>> print("Weighted average of flattened array:",weight_avg) 
+ 
+Output: 
+Flattened array: [1 2 3 4 5 6] 
+Weighted average of flattened array: 3.349999999999999 
+ 
+Q2) Write a python program to compute the Euclidian distance between the two 
+data points in a dataset.[Hint: Use linalgo.norm function from numpy] 
+Program 
+>>> import numpy as np 
+>>> point1 = np.array([1, 2, 3]) 
+>>> point2 = np.array([4, 5, 6]) 
+>>> distance = np.linalg.norm(point1 - point2) 
+>>>print(f"The Euclidean distance between point1 ({point1}) and point2 ({point2}) 
+is:{distance}") 
+ 
+Output 
+The Euclidean distance between point1 ([1 2 3]) and point2 ([4 5 6]) is: 
+5.196152422706632 
+ 
+Q4)Write a python program to compute the sum of Manhattan dis tance 
+between all pairs of points. 
+Program: 
+>>> def total_manhattan_distance(points): 
+      if len(points) < 2: 
+          return 0 
+
+
+
+     x_coords = [p[0] for p in points] 
+     y_coords = [p[1] for p in points] 
+     x_coords.sort() 
+     y_coords.sort() 
+     total_x_distance = 0 
+     num_points = len(points) 
+     for i in range(num_points): 
+         total_x_distance += x_coords[i] * (2 * i - num_points + 1) 
+         total_y_distance = 0 
+      for i in range(num_points): 
+         total_y_distance += y_coords[i] * (2 * i - num_points + 1) 
+      return total_x_distance + total_y_distance 
+>>> example_points = [(1, 5), (3, 2), (8, 6), (4, 9)] 
+>>> total_dist = total_manhattan_distance(example_points) 
+>>> print(f"The given points are: {example_points}") 
+>>> print(f"The sum of Manhattan distances between all pairs of points is: 
+{total_dist}") 
+ 
+Output: 
+The given points are: [(1, 5), (3, 2), (8, 6), (4, 9)] 
+The sum of Manhattan distances between all pairs of points is: 44 
+ 
+Set B 
+Q.1) Download Iris dataset file. Read this csv file using read_csv(), 
+Take sampels from entire dataset. Display maximum and minimum 
+values of all numeric attributes. 
+ 
+Program 
+>>>import pandas as pd  
+>>>df=pd.read_csv('C:/Users/samarth/Desktop/Iris.csv')  
+>>>df.sample(5) 
+ 
+Id SepalLengthCm SepalWidthCm PetalLengthCm PetalWidthCm Species  
+33 34 5.5 4.2 1.4 0.2 Iris-setosa 
+133 134 6.3 2.8 5.1 1.5 Iris-virginica 
+31 32 5.4 3.4 1.5 0.4 Iris-setosa 
+61 62 5.9 3.0 4.2 1.5 Iris-versicolor 
+57 58 4.9 2.4 3.3 1.0 Iris-versicolor 
+>>>print('Maximun value:',df.max()) 
+ Maximun value: Id 150 
+
+SepalLengthCm 7.9 
+SepalWidthCm 4.4 
+PetalLengthCm 6.9 
+PetalWidthCm 2.5 
+Species Iris-virginica 
+
+
+
+dtype: object 
+>>>print('Minimun value:',df.min()) 
+ Minimun value: Id 1 
+
+SepalLengthCm 4.3 
+SepalWidthCm 2.0 
+PetalLengthCm 1.0 
+PetalWidthCm 0.1 
+Species Iris-setosa 
+dtype: object 
+ 
+
+Q3)Display column-wise mean,and median for iris datasetfrom(Hint Use mean() 
+and median() functions of pandas dataframe.) 
+ 
+Program: 
+>>>column_means=df.mean() 
+>>>print("Column-wise Mean:") 
+>>>print(column_means) 
+
+Column-wise Mean: 
+Id 75.500000 
+SepalLengthCm 5.843333 
+SepalWidthCm 3.054000 
+PetalLengthCm 3.758667 
+PetalWidthCm 1.198667 
+dtype: float64 
+
+>>>column_median=df.median() 
+>>>print("Column-wise Median:") 
+>>>print(column_median) 
+
+Column-wise Median: 
+Id 75.50 
+SepalLengthCm 5.80 
+ 
+SepalWidthCm 3.00 
+PetalLengthCm 4.35 
+PetalWidthCm 1.30 
+dtype: float64 
+ 
+
+Set C 
+Q.1) Write python program to find minkowskii distance between 
+two points. 
+Program: 
+>>>import math 
+>>>def minkowski_distance(point1, point2, p): 
+>>>distance=0 
+>>>for i in range(len(point1)): 
+
+distance += abs(point1[i] - point2[i])**p 
+distance=distance**(1/p) 
+
+
+
+return distance 
+>>>point1=[1,2,3] 
+>>>point2=[4,5,6] 
+>>>p=2 
+>>>distance=minkowski_distance(point1, point2, p) 
+>>>print("minkowski distance:",distance) 
+ 
+Output:- 
+minkowski distance: 5.196152422706632 
+ 
+Q.3) Write a NumPy program to compute cross-correlation of two 
+given arrays 
+Program: 
+>>>import numpy as np 
+>>>a=np.array([1,2,3]) 
+>>>b=np.array([0,1,0.5]) 
+>>>result=np.correlate(a,b,mode='full') 
+>>>print("array a:",a) 
+>>>print("array b:",b) 
+>>>print("cross correlation:",result) 
+ 
+Output: 
+array a: [1 2 3] 
+array b: [0. 1. 0.5] 
+cross correlation: [0.5 2. 3.5 3. 0. ] 
+ 
+Q.5)Download nursery dataset from UCI. Split dataset on any one 
+categorical attribute. Compare the means of each split. (Use groupby) 
+Program: 
+>>>import pandas as pd 
+>>>url = "https://archive.ics.uci.edu/ml/machine-learning-
+databases/nursery/nursery.data" 
+>>>columns 
+=["parents","has_nurs","form","children","housing","finance","Social","health","class
+"] 
+>>>df = pd.read_csv(url, names=columns) 
+>>>print("First 5 rows:") 
+>>>print(df.head()) 
+>>>df_encoded = df.apply(lambda col:col.astype('category').cat.codes) 
+>>>grouped = df_encoded.groupby(df['housing']) 
+>>>mean_comparison = grouped.mean() 
+>>>print("\n Mean values for each 'housing'group:") 
+>>>print(mean_comparison) 
+ 
+Output:- 
+First 5 rows: 
+
+
+
+parents has_nurs form children housing finance Social \ 
+0 usual proper complete 1 convenient convenient nonprob 
+1 usual proper complete 1 convenient convenient nonprob 
+2 usual proper complete 1 convenient convenient nonprob 
+3 usual proper complete 1 convenient convenient slightly_prob 
+4 usual proper complete 1 convenient convenient slightly_prob 
+
+health class 
+0 recommended recommend 
+1 priority priority 
+2 not_recom not_recom 
+3 recommended recommend 
+4 priority priority 
+
+Mean values for each 'housing'group: 
+parents has_nurs form children housing finance Social \ 
+
+housing 
+convenient 1.0 2.0 1.5 1.5 0.0 0.5 1.0 
+critical 1.0 2.0 1.5 1.5 1.0 0.5 1.0 
+less_conv 1.0 2.0 1.5 1.5 2.0 0.5 1.0 
+
+health class 
+housing 
+convenient 1.0 1.298611 
+critical 1.0 1.425000 
+less_conv 1.0 1.376852 
+ 
+Q.6) Create one dataframe with 5 subjects and marks of 10 students 
+for each subject. Find Arithmetic mean, Geometric mean and 
+Harmonic mean. 
+ 
+Program: 
+>>>import pandas as pd 
+>>>import numpy as np 
+>>>from scipy.stats import gmean, hmean 
+>>>data={ 
+
+'Math':[78,85,92,66,74,88,90,55,80,69], 
+'Science':[82,79,88,90,73,84,91,60,77,85], 
+'English':[75,80,85,70,90,78,88,65,76,82], 
+'History':[68,72,80,60,75,70,85,55,78,74], 
+'Computer':[90,85,95,88,92,80,96,70,89,84] 
+} 
+
+>>>df=pd.DataFrame(data) 
+>>>print("===Marks DataFrame ===") 
+>>>print(df) 
+>>>arith_mean=df.mean() 
+>>>geo_mean=gmean(df,axis=0) 
+>>>harm_mean=hmean(df,axis=0) 
+>>>print("\n===Arithmetic Mean ===") 
+
+
+
+>>>print(arith_mean) 
+>>>print("\n===Geometric Mean ===") 
+>>>print(pd.Series(geo_mean,index=df.columns)) 
+>>>print("\n===Harmonic Mean ===") 
+>>>print(pd.Series(harm_mean,index=df.columns)) 
+ 
+Output:- 
+===Marks DataFrame === 
+  Math Science English History Computer 
+0 78 82 75 68 90 
+1 85 79 80 72 85 
+2 92 88 85 80 95 
+3 66 90 70 60 88 
+4 74 73 90 75 92 
+5 88 84 78 70 80 
+6 90 91 88 85 96 
+7 55 60 65 55 70 
+8 80 77 76 78 89 
+9 69 85 82 74 84 
+===Arithmetic Mean === 
+Math 77.7 
+Science 80.9 
+English 78.9 
+History 71.7 
+Computer 86.9 
+dtype: float64 
+===Geometric Mean === 
+Math 76.826385 
+Science 80.368721 
+English 78.542167 
+History 71.159844 
+Computer 86.572191 
+dtype: float64 
+===Harmonic Mean === 
+Math 75.890308 
+Science 79.783699 
+English 78.175908 
+History 70.591041 
+Computer 86.222928 
+dtype: float64

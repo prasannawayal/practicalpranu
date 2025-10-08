@@ -1,0 +1,144 @@
+﻿Practical No.4 
+Name: Wayal Prasanna Ganesh 
+Class: T.Y.BSc(Comp. Science) 
+Roll No: 59 
+Div: B                      Batch: D 
+Subject :Foundation of Data Science 
+Assignment Name: Data Visualization 
+Performance Date:                                Submission Date: 
+ 
+Set A : 
+1.Generate a random array of 50 integers and display them using a line chart, scatter plot, 
+histogram and box plot. Apply appropriate color, labels and styling options. 
+import numpy as np 
+import matplotlib.pyplot as plt 
+np.random.seed(42) 
+random_data=np.random.randint(1,100,50) 
+plt.figure(figsize=(12,4)) 
+plt.subplot(221) 
+plt.plot(random_data,color='blue',marker='o') 
+plt.title('Line Chart') 
+plt.xlabel('Index') 
+plt.ylabel('Value') 
+Output: 
+Text(0, 0.5, 'Value') 
+
+ 
+plt.subplot(222) 
+plt.scatter(range(50),random_data,color='red',marker='x') 
+plt.title('Scatter Plot') 
+plt.xlabel('Index') 
+plt.ylabel('Value') 
+Output: 
+Text(0, 0.5, 'Value') 
+
+ 
+
+
+
+plt.subplot(223) 
+plt.hist(random_data,bins=10,color='green',edgecolor='black') 
+plt.title('Histogram') 
+plt.xlabel('Value') 
+plt.ylabel('Frequency') 
+Output: 
+Text(0, 0.5, 'Frequency') 
+ 
+
+ 
+plt.subplot(224) 
+plt.boxplot(random_data,vert=False) 
+plt.title('Box Plot') 
+Output: 
+Text(0.5, 1.0, 'Box Plot') 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+3.Create two lists, one representing subject names and the other representing marks obtained 
+in those subjects. Display the data in a pie chart and bar chart.  
+import matplotlib.pyplot as plt 
+subject=['Math','Science','History','English','Art'] 
+marks=[85,92,78,88,70] 
+plt.figure(figsize=(11,5)) 
+plt.pie(marks,labels=subject,autopct='%1.11f%%',startangle=140) 
+plt.title('Pie Chart-Subject Marks') 
+
+
+
+ 
+plt.subplot(122) 
+plt.bar(subject,marks,color='skyblue') 
+plt.title('Bar Chart - Subject Marks') 
+plt.xlabel('Subjects') 
+plt.ylabel('Marks') 
+
+ 
+6.Write a Python program to create a histogram of the three species of the Iris data. 
+import matplotlib.pyplot as plt 
+import seaborn as sns 
+iris=sns.load_dataset('Iris') 
+plt.figure(figsize=(10,6)) 
+for species in iris['species'].unique(): 
+    species_data=iris[iris['species']==species] 
+    sns.histplot(species_data['sepal_length'],label=species,kde=True) 
+plt.xlabel('Sepal Length (cm)') 
+plt.ylabel('Frequency') 
+plt.title('Sepal Length Distribution by Iris Species') 
+plt.legend() 
+
+
+
+Output: 
+
+<matplotlib.legend.Legend at 0x288a0082de0> 
+
+ 
+
+Set-B: 
+
+Que.2)Write a Python program to draw scatter plots to compare two features of the iris 
+dataset. 
+
+ import matplotlib.pyplot as plt 
+import seaborn as sns 
+iris=sns.load_dataset('Iris') 
+feature1='sepal_length' 
+feature2='sepal_width' 
+plt.figure(figsize=(8,6)) 
+sns.scatterplot(x=feature1,y=feature2,data=iris,hue='species',palette='Set1') 
+plt.xlabel('feature1') 
+plt.ylabel('feature2') 
+plt.title(f'Scatter plot of{feature1} vs {feature2}') 
+plt.show() 
+
+Output: 
+
+
+
+ 
+
+3.Write a Python program to create box plots to see how each feature i.e. Sepal Length, Sepal 
+Width, Petal Length, Petal Width are distributed across the three species. 
+
+import matplotlib.pyplot as plt 
+import seaborn as sns 
+iris=sns.load_dataset('Iris') 
+plt.figure(figsize=(12,6)) 
+for feature in iris.columns[:-1]: 
+    sns.boxplot(x='species',y=feature,data=iris,palette='Set1') 
+    plt.title(f'Box Plot of {feature} by Species') 
+    plt.ylabel(feature) 
+    plt.show() 
+
+Output:

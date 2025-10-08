@@ -1,0 +1,392 @@
+﻿Assignment No. 1 
+
+ 
+Name :-Wayal Prasanna Ganesh
+Class :-T.Y.Bsc(Computer Science)
+Roll No :-59
+Div :-B
+Batch :-D
+Name of Practical :-To Study HTML,HTML 5 & CSS
+PracticalDate :-     /     /                   Submission Date :-     /     /
+ 
+Set A :- 
+ 
+Q1) Create a html document to display the following screen. 
+ 
+  
+
+Program :- 
+ 
+ <html> 
+ <body> 
+ <h1> list of indian states with their capital</h1> 
+ <ol> 
+ <li> Delhi 
+ <ul type='circle'> 
+ <li> new Delhi </li> 
+ </ul> 
+ </li> 
+ <li> Haryana 
+ <ul type='circle'> 
+ <li> chandigard</li> 
+ </ul> 
+ </li> 
+ <li> Gujarat 
+ <ul type='circle'> 
+ <li> Gandhinager</li> 
+ </ul> 
+ </li> 
+ <li> Rajasthan 
+ <ul type='circle'> 
+ <li> jaipur</li> 
+
+
+
+ </ul> 
+ </li> 
+ <li> Maharashtra 
+ <ul type='circle'> 
+ <li> Mumbai</li> 
+ </ul> 
+ </li> 
+ <li> Utterpradesh 
+ <ul type='circle'> 
+ <li> Lucknow</li> 
+ </ul> 
+ </li> 
+ </ol> 
+ </body> 
+ </html> 
+  
+ Q2)Write  a HTML code with geneate the followiung output. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+Program :- 
+ 
+ <html> 
+ <head> 
+ <title> list of books</title> 
+ <body> 
+ <table border="4"> 
+ <caption>List of Books</caption> 
+ <tr> 
+ <th rowspan="2">Item no</th> 
+ <th rowspan="2">Item name</th> 
+ <th colspan="2">price</th> 
+ </tr> 
+ <tr> 
+ <th> Rs.</th> 
+ <th> Paise</th> 
+ </tr> 
+ <tr> 
+ <td> 1</td> 
+ <td> Programming in python</td> 
+ <td> 500</td> 
+ <td> 50</td> 
+ </tr> 
+ <tr> 
+
+
+
+ <td> 2</td> 
+ <td> Programming in java</td> 
+ <td> 345</td> 
+ <td> 0</td> 
+ </tr> 
+ </body> 
+ </head> 
+ </html> 
+ 
+ 
+ Set B :- 
+ 
+Q1)Write the HTML code for generating the form as shown below. 
+Apply the internal CSS to following from changes the font size of the heading to 6 pt & 
+change the colour to red & also change the background color yellow. 
+ 
+
+ 
+ 
+ 
+
+Program: 
+ <!DOCTYPE html> 
+ <html> 
+ <head> 
+ <title> form</title> 
+ <style> 
+ body{ 
+ background-color:yellow; 
+ } 
+ h1{ 
+ color:red; 
+ font-size:10pt; 
+ } 
+ </style> 
+ </head> 
+ </body> 
+ <form> 
+ <h1> operating system information</h1> 
+ Enter your name:<input type="text"><br> 
+ Passward:<input type="passward"><br> 
+ which of the following operating system have you used?<br> 
+ <input type="checkbox" name="s1" value="linux" checked>linux 
+
+
+
+ <input type="checkbox" name="s2" value="windows" checked>windows 
+ <input type="checkbox" name="s3" value="mac" >mac<br> 
+ which of the following operating system do you like the best?<br> 
+ <input type="radio" name="s1" value="linux" checked>linux 
+ <input type="radio" name="s2" value="windows 10" >windows 10 
+ <input type="radio" name="s3" value="macintoch 8.0" >macintoch 8.0<br> 
+ you have completer your form<br> 
+ <input type="submit" value="sign up"> 
+ </form> 
+ </html> 
+ 
+ 
+ Q2) Write HTML 5 code which generates the following output and display     each element of 
+list in different size, color & font. Use external CSS to format the list. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+Program:- 
+ 
+ <html lang="en"> 
+ <head> 
+ <meta charset="UTR-8"> 
+ <title>Plants</title> 
+ <link rel="stylesheet" href="sp9.css"> 
+ </head> 
+ <body> 
+ <ul> 
+ <li class="non-flowering">Non flowering plants 
+ <ul> 
+ <li class="fern">fern</li> 
+ <li class="spore">spore</li> 
+ </ul> 
+ </li> 
+ <li class="flowering">Flowering Plant 
+ <ul> 
+ <li class="lilly">Lilly</li> 
+ <li class="rose">Rose</li> 
+ <ol> 
+ <li class="red">Red Rose</li> 
+ <li class="pink">Pink Rose</li> 
+
+
+
+ </ol> 
+ </li> 
+ </ul> 
+ </li> 
+ </ul> 
+ </body> 
+ </html> 
+  
+ sp9.css 
+  
+ body{ 
+ font-family:Arial,sans-serif; 
+  } 
+ .non-flowering{ 
+ color:darkgreen; 
+ font-size:20px; 
+ font-family:Georgai,serif; 
+ } 
+ .fern{ 
+ color:teal; 
+ font-size:18px; 
+ font-family:Courier New,Courier,monospace; 
+ } 
+ .spore{ 
+ color:olive; 
+ font-size:18px; 
+ font-family:Verdana,sans-serif; 
+ } 
+ .flowering{ 
+ color:darkblue; 
+ font-size:18px; 
+ font-family:Times New Roman,Times,serif; 
+ } 
+ .lilly{ 
+ color:purple; 
+ font-size:18px; 
+ font-family:Tahoma,sans-serif; 
+ } 
+ .rose{ 
+ color:maroon; 
+ font-size:18px; 
+ font-family:Lucida Console,monospace; 
+ } 
+ .red{ 
+ color:red; 
+ font-size:16px; 
+ font-family:Calibri,serif-serif; 
+ } 
+ .pink{ 
+ color:deeppink; 
+ font-size:16px; 
+ font-family:Comic sans MS,cursive; 
+
+
+
+ } 
+ 
+ Set C :- 
+ 
+ Q1) Design HTML 5 Page Using CSS which display the following Box( use Box Model Property 
+in CSS) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Program :- 
+ 
+ <html lang="en"> 
+ <head> 
+ <meta charset="UTR-8"> 
+ <title>CSS Box Model Property</title> 
+ <link rel="stylesheet" href="sp11.css"> 
+ </head> 
+ <body> 
+ <h2>CSS Box Model Property</h2> 
+ <div class="outer-box"> 
+ <div class="inner-box"> 
+ <div class="label">T.Y.Bsc(computer Science)</div> 
+ <div class="label">Academic Year 2021-22</div> 
+ </div> 
+ </div> 
+ </body> 
+ </html> 
+
+
+
+  
+ sp11.css 
+  
+ body{ 
+ text-align:center; 
+ font-family:Arial,sans-serif; 
+ } 
+ .outer-box{ 
+ width:500px; 
+ height:300px; 
+ margin:0 auto; 
+ padding:50px; 
+ background-color:gold; 
+ border:3px solid black; 
+ box-sizing:border-box; 
+ } 
+ .inner-box{ 
+ display:flex; 
+ flex-direction:column; 
+ align-item:center; 
+ gap:20px; 
+ padding:30px; 
+ background-color:maroon; 
+ border:2px solid black; 
+ } 
+ .label{ 
+ background-color:white; 
+ padding:10px 20px; 
+ border:2px solid black; 
+ } 
+ 
+ 
+ Q2) Design HTML 5 Page Using CSS Which Display the following Navigation Bar. 
+ 
+
+ 
+ 
+ Program :- 
+ 
+ <!Doctype html> 
+ <html lang="en"> 
+ <head> 
+ <meta charset="UTF-8"> 
+ <title>Nevigation bar</title> 
+ <style> 
+ body{ 
+ font-family:Arial,sans-serif; 
+ } 
+ .navbar{ 
+ background-color:#d3d3d3; 
+
+
+
+ display:flex; 
+ justify-content:center; 
+ padding:10px 0; 
+ } 
+ .navbar a{ 
+ text-decoration:none; 
+ padding:10px 20px; 
+ color:blue; 
+ font-weight:bold; 
+ } 
+ .navbar a:hover{ 
+ background-color:#999; 
+ color:white; 
+ } 
+ .navbar a.active{ 
+ background-color:#555; 
+ color:white; 
+ } 
+ </style> 
+ </head> 
+ <body> 
+ <div class="navbar"> 
+ <a href="#"class="active">Home</a> 
+ <a href="#">java</a> 
+ <a href="#">Html</a> 
+ <a href="#">css</a> 
+ </div> 
+ </body> 
+ </html>
