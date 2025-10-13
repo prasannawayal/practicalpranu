@@ -1,0 +1,138 @@
+﻿Assignment No : 1 
+ 
+
+Name:-Wayal Prasanna Ganesh
+Class:-T.Y.B.Sc(Computer Science) 
+Div:-B                         Roll No:-59
+Batch:-D 
+Subject:- Operating System 
+Practical Date:- 22/07/2025                    Submission Date:- 
+ 
+ 
+ 
+ 
+ 
+Set A- 
+(1) Implement the C Program to create a child process using fork(), display 
+parent and child 
+process id. Child process will display the message “I am Child Process” and the 
+parent 
+process should display “I am Parent Process”. 
+ 
+Program:- 
+#include<stdio.h> 
+#include<sys/types.h> 
+#include<unistd.h> 
+int main() 
+{ 
+pid_t pid; 
+pid=fork(); 
+if (pid==0) 
+{ 
+printf("\nI am child process,id=%d\n",getpid()); 
+printf("\nPriority:%d,id=%d\n",nice(-7),getpid()); 
+} 
+else 
+{ 
+printf("\nI am parent process,id=%d\n",getpid()); 
+nice(1); 
+printf("\nPriority:%d,id=%d\n",nice(15),getpid()); 
+} 
+return 0; 
+} 
+ 
+Output:- 
+I am parent process,id=2831 
+
+
+
+Priority:16,id=2831 
+I am child process,id=2832 
+Priority:-1,id=2832 
+ 
+(2) Write a program that demonstrates the use of nice() system call. After a child 
+process is 
+started using fork(), assign higher priority to the child using nice() system call. 
+ 
+Program:- 
+#include<stdio.h> 
+#include<sys/types.h> 
+#include<unistd.h> 
+int main() 
+{ 
+int pid=fork(); 
+if (pid>0){ 
+printf("I am parent process\n"); 
+printf("ID:%d\n\n",getpid()); 
+} 
+else if(pid==0){ 
+printf("I am child process\n"); 
+printf("ID :%d\n",getpid()); 
+} 
+else 
+{ 
+printf("Failed to create child process"); 
+} 
+return 0; 
+} 
+ 
+Output:- 
+I am parent process 
+ID:3249 
+ 
+I am child process 
+ID :3250 
+ 
+ 
+Set B- 
+(2) Write a C program to illustrate the concept of orphan process. Parent 
+process creates a 
+child and terminates before child has finished its task. So child process becomes 
+orphan 
+process. (Use fork(), sleep(), getpid(), getppid()). 
+ 
+
+
+
+Program:- 
+ 
+#include<stdio.h> 
+#include<unistd.h> 
+#include<sys/types.h> 
+int main() 
+{ 
+int pid; 
+pid = getpid(); 
+printf("Current process ID is :%d\n",pid); 
+printf("\n[Forking child process.....]\n"); 
+pid =fork(); 
+if(pid<0) 
+{ 
+printf("\nProcess can not be created"); 
+} 
+else 
+{ 
+if(pid==0) 
+{ 
+printf("\nChild process is sleeping..."); 
+sleep(5); 
+printf("\nOrphan child's parent ID:%d",getppid()); 
+} 
+else 
+{/*parent process*/ 
+printf("\nparent process complete....."); 
+} 
+} 
+return 0; 
+} 
+ 
+Output:- 
+Current process ID is :2935 
+ 
+[Forking child process.....] 
+ 
+parent process complete..... 
+ 
+ 
+Child process is sleeping... 
+Orphan child's parent

@@ -1,0 +1,372 @@
+﻿Practical No: 2 
+ 
+Name: Wayal Prasanna Ganesh 
+Class: T.Y.BSc(Computer Science) 
+Div: B          Batch: D 
+Roll No: 59 
+Sub: CS-357 Operating System-I 
+Practical Name: 
+Submission Date:                                                 Performance Date: 
+____________________________________________________________________ 
+Set A 
+1) Write a C program that behaves like a shell which displays the command prompt 
+‘myshell$’. It accepts the command, tokenize the command line and execute it by creating the child 
+process.Also implement the additional command ‘count’ as myshell$ count c filename: It will 
+display the number of characters in given file myshell$ count w filename: It will display the number of 
+words in given file myshell$ count l filename: It will display the number of lines in given file 
+Program: 
+#include<sys/types.h> 
+#include<sys/stat.h> 
+#include<fcntl.h> 
+#include<stdio.h> 
+#include<stdlib.h> 
+#include<string.h> 
+void make_toks(char *s, char *tok[]) 
+{ 
+int i=0; 
+char *p; 
+p = strtok(s," "); 
+while(p!=NULL) 
+{ 
+tok[i++]=p; 
+p=strtok(NULL," "); 
+} 
+tok[i]=NULL; 
+} 
+void count(char *fn, char op) 
+{ 
+int fh,cc=0,wc=0,lc=0; 
+char c; 
+fh = open(fn,O_RDONLY); 
+if(fh==-1) 
+{ 
+printf("File %s not found.\n",fn); 
+
+
+
+return; 
+}while(read(fh,&c,1)>0) 
+{ 
+if(c==' ') wc++; 
+else if(c=='\n') 
+{ 
+wc++; 
+lc++; 
+} 
+cc++; 
+} 
+close(fh); 
+switch(op) 
+{ 
+case 'c': 
+printf("No.of characters:%d\n",cc-1); 
+break; 
+case 'w': 
+printf("No.of words:%d\n",wc); 
+break; 
+case 'l': 
+printf("No.of lines:%d\n",lc+1); 
+break; 
+} 
+} 
+int main() 
+{ 
+char buff[80],*args[10]; 
+int pid;while(1) 
+{ 
+printf("myshell$ "); 
+fflush(stdin); 
+fgets(buff,80,stdin); 
+buff[strlen(buff)-1]='\0'; 
+make_toks(buff,args); 
+if(strcmp(args[0],"count")==0) 
+count(args[2],args[1][0]); 
+else 
+{ 
+pid = fork(); 
+if(pid>0) 
+wait(); 
+else 
+{ 
+if(execvp(args[0],args)==-1) 
+printf("Bad command.\n"); 
+
+
+
+} 
+} 
+} 
+return 0; 
+} 
+ Output: 
+myshell$ count c trail.txt 
+No.of characters:21 
+myshell$ count w trail.txt 
+No.of words:5 
+myshell$ count l trail.txt 
+No.of lines:3 
+ 
+Set B 
+1)Write a C program that behaves like a shell which displays the command prompt’myshell$’.It 
+accept the command , tokenize the command line and execute it by creating the child process.Also 
+implement the additional command ‘list’ as 
+myshell$ list f dirname : It will display filenames in a given directory. 
+myshell$ list n dirname : It will count the  number of entries in a given directory. 
+myshell$ list i dirname : It will display filename and their inode number for the file in a given directory. 
+ 
+ #include<stdio.h> 
+ #include<sys/types.h> 
+ #include<sys/stat.h> 
+ #include<unistd.h> 
+ #include<dirent.h> 
+ #include<string.h> 
+ #include<fcntl.h> 
+ void list(char op,char *dn); 
+ int main() 
+ { 
+ char command[80],t1[20],t2[20],t3[20],t4[20]; 
+ int n,pid; 
+ system("clear"); 
+ while(1) 
+ { 
+ printf("myshell$"); 
+ fflush(stdin); 
+ fgets(command,80,stdin); 
+ n=sscanf(command,"%s%s%s%s",t1,t2,t3,t4); 
+ switch(n) 
+ { 
+ case 1: 
+ pid=fork(); 
+ if(pid==0) 
+ { 
+
+
+
+ execlp(t1,t1,NULL); 
+ } 
+ else wait(); 
+ break; 
+ case 2: 
+ pid=fork(); 
+ if(pid==0) 
+ { 
+ execlp(t1,t1,t2,NULL); 
+ } 
+ else wait(); 
+ break; 
+ case 3: 
+ if(strcmp(t1,"list")==0) 
+ { 
+ list(t2[0],t3); 
+ } 
+ else 
+ { 
+ pid=fork(); 
+ if(pid==0) 
+ { 
+ execlp(t1,t1,t2,t3,NULL); 
+ } 
+ else 
+ wait(); 
+ } 
+ break; 
+ case 4: 
+ pid=fork(); 
+ if(pid==0) 
+ { 
+ execlp(t1,t1,t2,t3,t4,NULL); 
+ } 
+ else 
+ wait(); 
+ break; 
+ } 
+ } 
+ } 
+ void list(char op,char *dn) 
+ { 
+ DIR*dirp; 
+ struct dirent *e; 
+ int dc=0,fc=0; 
+ dirp=opendir(dn); 
+
+
+
+ if(dirp==NULL) 
+ { 
+ printf("Dir %s  not found\n",dn); 
+ return; 
+ } 
+ switch(op) 
+ { 
+ case'f': 
+ while(e=readdir(dirp)) 
+ { 
+ if(e->d_type==DT_REG) 
+ printf("%s\n",e->d_name); 
+ } 
+ break; 
+ case'n': 
+ while(e=readdir(dirp)) 
+ { 
+ if(e->d_type==DT_DIR) 
+ dc++; 
+ if(e->d_type==DT_REG) 
+ fc++; 
+ } 
+ printf("%d File(s)%d Dir(s)\n",fc,dc); 
+ break; 
+ case'i': 
+ while(e = readdir(dirp)) 
+ { 
+ if(e->d_type==DT_REG) 
+ printf("%s\t%ld\n",e->d_name,e->d_fileno); 
+ } 
+ break; 
+ default: 
+ printf("Invalid option"); 
+ } 
+ } 
+     
+ 
+Output: 
+ myshell$ list f shell 
+shell.c 
+a.txt 
+text.txt 
+snehal.c 
+type.c 
+a.out 
+myshell$ list n shell 
+
+
+
+6 File(s)2 Dir(s) 
+myshell$ list i shell 
+shell.c 279699 
+a.txt 279705 
+text.txt 279743 
+snehal.c 279136 
+type.c 279292 
+a.out 279482 
+myshell$ 
+ 
+Set C 
+1)Write a C program that behaves like a shell which displays the command prompt ‘myshell$’. It 
+accepts the command, tokenize the command line and execute it by creating the child process.Also 
+implement the additional command ‘typeline’ as 
+myshell$ typeline n filename: It will display first n lines of the file. 
+myshell$ typeline -n filename: It will display last n lines of the file. 
+myshell$ typeline a filename: It will display all the lines of the file. 
+Program: 
+#include<sys/types.h> 
+#include<sys/stat.h> 
+#include<stdio.h> 
+#include<stdlib.h> 
+#include<string.h> 
+#include<dirent.h> 
+#include<unistd.h> 
+#include<fcntl.h> 
+int make_toks(char*s,char*tok[]) 
+{ 
+int i=0; 
+char*p; 
+p=strtok(s," "); 
+while(p!=NULL) 
+{ 
+tok[i++]=p; 
+p=strtok(NULL," "); 
+} 
+tok[i]=NULL; 
+return i; 
+} 
+void typeline(char*op,char*fn) 
+{ 
+int fh, 
+i,j,n; 
+char c; 
+fh=open(fn,O_RDONLY); 
+if(fh==-1) 
+
+
+
+{ 
+printf("File %s not found.\n",fn); 
+return; 
+} 
+if(strcmp(op,"a")==0) 
+{ 
+while(read(fh,&c,1)>0) 
+printf("%c",c); 
+close(fh); 
+return; 
+} 
+n=atoi(op); 
+if(n>0) 
+{ 
+i=0; 
+while(read(fh,&c,1)>0) 
+{ 
+printf("%c",c); 
+if(c=='\n')i++; 
+if(i==n)break; 
+} 
+} 
+if(n<0) 
+{ 
+i=0; 
+while(read(fh,&c,1)>0) 
+{ 
+if(c=='\n') 
+i++; 
+} 
+lseek(fh,0,SEEK_SET); 
+j=0; 
+while(read(fh,&c,1)>0) 
+{ 
+printf("%c",c); 
+} 
+} 
+close(fh); 
+} 
+int main() 
+{ 
+char buff[80], 
+*args[10]; 
+while(1) 
+{ 
+printf("\n"); 
+
+
+
+printf("\nmyshell$"); 
+fgets(buff,80,stdin); 
+buff[strlen(buff)-1]='\0'; 
+int n=make_toks(buff,args); 
+switch(n) 
+{ 
+case 1: 
+if(strcmp(args[0],"exit")==0) 
+exit(1); 
+if(!fork()) 
+execlp(args[0],args[0],NULL); 
+break; 
+case 2: 
+if(!fork()) 
+execlp(args[0],args[0],args[1],NULL); 
+break; 
+case 3: 
+if(strcmp(args[0],"typeline")==0)typeline(args[1],args[2]); 
+else 
+{ 
+if(!fork()) 
+execlp(args[0],args[0],args[1],args[2],NULL); 
+} 
+break; 
+case 4: 
+if (fork()) 
+execlp(args[0],args[0],args[1],args[2],args[3],NULL); 
+break; 
+} 
+} 
+return 0; 
+}

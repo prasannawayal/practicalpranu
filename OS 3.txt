@@ -1,0 +1,768 @@
+﻿Practical No. 3 
+ 
+
+Name :- Barhate Vivek Sandip 
+Class :- T.Y.B.Sc (Computer Science) 
+Div :- B 
+Roll No. :- 04 
+Batch :- C 
+Subject :- Operating System - I 
+Practical Name :- CPU Scheduling 
+Performance Date :-  Submission Date :- 
+
+SET-A 
+
+Que 1 ) Write the program to simulate FCFS CPU-scheduling. The arrival time and 
+first CPU-burst for different n number of processes should be input to the algorithm. 
+Assume that the fixed IO waiting time (2 units). The next CPU-burst should be 
+generated randomly. The output should give Gantt chart, turnaround time and waiting 
+time for each process. Also find the average waiting time and turnaround time. 
+
+Program:- 
+
+#include<stdio.h> 
+#include<string.h> 
+struct process 
+{ 
+
+char pname[10]; 
+int AT,BT,ST,FT,TT,WT; 
+
+} p[45]; 
+ 
+
+struct process t; 
+int i,n,j,k,bt; 
+char GC[50]; 
+
+void get_data() 
+{ 
+
+printf("Enter number of processes:"); 
+scanf("%d",&n); 
+printf("Enter process details for %d processes:",n); 
+for(i=0;i<n;i++) 
+{ 
+
+printf("\n Enter process name,arival time,cpu burst time:"); 
+scanf("%s%d%d",p[i].pname,&p[i].AT,&p[i].BT); 
+
+} 
+} 
+
+void put_data() 
+{ 
+
+printf("\n Process are as below"); 
+
+
+
+printf("\nProcess name\t arival time\t cpu burst time\t finish time\t start time"); 
+for(i=0;i<n;i++) 
+{ 
+
+printf("\n%s\t\t%d\t\t%d\t\t%d\t\t%d",p[i].pname,p[i].AT,p[i].BT,p[i].FT,p[i].ST); 
+} 
+
+} 
+ 
+
+void arrivalsort() 
+{ 
+
+for(i=0;i<n;i++) 
+{ 
+
+for(j=i+1;j<n;j++) 
+{ 
+
+if(p[i].AT > p[j].AT) 
+{ 
+
+t=p[i]; 
+p[i]=p[j]; 
+p[j]=t; 
+
+} 
+} 
+
+} 
+} 
+
+void burstsort() 
+{ 
+
+for(i=0;i<n;i++) 
+{ 
+
+for(j=i+1;j<n;j++) 
+{ 
+
+if(p[i].BT > p[j].BT) 
+{ 
+
+t=p[i]; 
+p[i]=p[j]; 
+p[j]=t; 
+
+} 
+} 
+
+} 
+} 
+
+ 
+void avgTTWT() 
+{ 
+
+float sumtt=0,sumwt=0; 
+for(i=0;i<n;i++) 
+{ 
+
+p[i].TT=p[i].FT-p[i].AT; 
+p[i].WT=p[i].ST-p[i].AT; 
+sumtt=sumtt+p[i].TT; 
+sumwt=sumwt+p[i].WT; 
+
+
+
+} 
+printf("\n Process\tAT\tBT\tTT\tWT\tST\tFT\n"); 
+for(i=0;i<n;i++) 
+{ 
+
+printf("\n%s\t\t%d\t%d\t%d\t%d\t%d\t%d",p[i].pname,p[i].AT,p[i].BT,p[i].TT,p[i].WT,p[i]. 
+ST,p[i].FT); 
+
+} 
+printf("\n\nAverage turn around time=%0.2f/%d=%0.2f",sumtt,n,sumtt/n); 
+printf("\n\nAverage wait time=%0.2f/%d=%0.2f\n",sumwt,n,sumwt/n); 
+
+} 
+
+void fcfs() 
+{ 
+
+char str[5]; 
+int time=0; 
+strcat(GC,"0"); 
+for(i=0;i<n;i++) 
+{ 
+
+strcat(GC,"|"); 
+if(p[i].AT>time) 
+{ 
+
+strcat(GC,"CPUIDLE"); 
+time=p[i].AT; 
+sprintf(str,"%d",time); 
+strcat(GC,str); 
+strcat(GC,"|"); 
+
+} 
+p[i].ST=time; 
+strcat(GC,p[i].pname); 
+bt=p[i].BT; 
+k=0; 
+
+while(bt!=0) 
+{ 
+
+strcat(GC," "); 
+bt--; 
+k++; 
+
+} 
+time=time+k; 
+p[i].FT=time; 
+sprintf(str,"%d",time); 
+strcat(GC,str); 
+
+} 
+printf("\n\n Gantt Chart\n"); 
+puts(GC); 
+avgTTWT(); 
+
+} 
+
+
+
+int main() 
+{ 
+
+get_data(); 
+put_data(); 
+arrivalsort(); 
+printf("\n Processes after sorting on arrival time\n"); 
+put_data(); 
+fcfs(); 
+
+} 
+ 
+
+Output :- 
+
+Enter number of processes:4 
+Enter process details for 4 processes: 
+Enter process name,arival time,cpu burst time:p1 0 2 
+
+Enter process name,arival time,cpu burst time:p2 1 2 
+
+Enter process name,arival time,cpu burst time:p3 5 3 
+
+Enter process name,arival time,cpu burst time:p4 6 4 
+
+Process are as below 
+Process name arival time cpu burst time finish time start time 
+p1 0 2 0 0 
+p2 1 2 0 0 
+p3 5 3 0 0 
+p4 6 4 0 0 
+Processes after sorting on arrival time 
+
+  
+Process are as below   
+Process name arival time cpu burst time finish time start time 
+p1 0 2 0 0 
+p2 1 2 0 0 
+p3 5 3 0 0 
+p4 6 4 0 0 
+
+  
+Gantt Chart 
+0|p1 2|p2 4|CPUIDLE5|p3  8|p4 12 
+
+Process AT BT TT WT ST FT 
+
+p1 0 2 2 0 0 2 
+p2 1 2 3 1 2 4 
+p3 5 3 3 0 5 8 
+p4 6 4 6 2 8 12 
+
+
+
+Average turn around time=14.00/4=3.50 
+
+Average wait time=3.00/4=0.75 
+
+ 
+SET-B 
+
+ 
+Que.1 ) Write the program to simulate Preemptive Shortest Job First (SJF) - 
+scheduling. The arrival time and first CPU-burst for different n number of processes 
+should be input to the algorithm. Assume the fixed IO waiting time (2 units). The next 
+CPU-burst should be generated randomly. The output should give Gantt chart, 
+turnaround time and waiting time for each process. Also find the average waiting time 
+and turnaround time. 
+
+ 
+Program :- 
+
+#include<stdio.h> 
+#include<string.h> 
+struct process 
+{ 
+
+char pname[10]; 
+int AT,BT,ST,FT,TT,WT,BT1; 
+
+} p[15]; 
+struct process t; 
+int i,n,j,k,bt,tq; 
+char GC[200]; 
+void get_data() 
+{ 
+
+printf("Enter number of processes:"); 
+scanf("%d",&n); 
+printf("Enter process details for %d processes:",n); 
+for(i=0;i<n;i++) 
+{ 
+
+printf("\n Enter process name,arival time,cpu burst time:"); 
+scanf("%s %d %d",p[i].pname,&p[i].AT,&p[i].BT); 
+p[i].BT1=p[i].BT; 
+
+} 
+} 
+void put_data() 
+{ 
+
+printf("\n Process are as below"); 
+printf("\nProcess name\t arival time\t cpu burst time"); 
+for(i=0;i<n;i++) 
+{ 
+
+printf("\n%s\t\t%d\t\t%d",p[i].pname,p[i].AT,p[i].BT); 
+} 
+
+} 
+void arrivalsort() 
+
+
+
+{ 
+//struct process t; 
+for(i=0;i<n;i++) 
+{ 
+
+for(j=i+1;j<n;j++) 
+{ 
+
+if(p[i].AT > p[j].AT) 
+{ 
+
+t=p[i]; 
+p[i]=p[j]; 
+p[j]=t; 
+
+} 
+} 
+
+} 
+} 
+void burst_sort() 
+{ 
+
+//struct process t; 
+for(i=0;i<n;i++) 
+{ 
+
+for(j=i+1;j<n;j++) 
+{ 
+
+if(p[i].BT > p[j].BT) 
+{ 
+
+t=p[i]; 
+p[i]=p[j]; 
+p[j]=t; 
+
+} 
+} 
+
+} 
+} 
+void avgTTWT() 
+{ 
+
+float sumtt=0,sumwt=0; 
+for(i=0;i<n;i++) 
+{ 
+
+p[i].TT=p[i].FT-p[i].AT; 
+p[i].WT=p[i].ST-p[i].AT; 
+sumtt=sumtt+p[i].TT; 
+sumwt=sumwt+p[i].WT; 
+
+} 
+printf("\n Process\tAT\tBT\tTT\tWT\n"); 
+for(i=0;i<n;i++) 
+{ 
+
+printf("\n%s\t\t%d\t%d\t%d\t%d",p[i].pname,p[i].AT,p[i].BT1,p[i].TT,p[i].WT); 
+} 
+printf("\n Average turn around time=%f/%d=%f",sumtt,n,sumtt/n); 
+printf("\n Average wait time=%f/%d=%f\n",sumwt,n,sumwt/n); 
+
+
+
+} 
+void pre_sjf() 
+{ 
+
+char str[5]; 
+i=0; 
+int time=0; 
+tq=1; 
+strcpy(GC,"0|"); 
+aaa: 
+if(p[i].BT!=0) 
+{ 
+
+if(p[i].AT>time) 
+{ 
+
+for(j=i+1;j<n;j++) 
+{ 
+
+if(p[j].AT<p[i].AT && p[j].BT!=0) 
+{ 
+
+time=p[j].AT; 
+sprintf(str,"%d",time); 
+strcat(GC,str); 
+strcat(GC,"|"); 
+p[j].ST=time; 
+strcat(GC,p[j].pname); 
+p[j].BT=p[j].BT-tq; 
+strcat(GC," "); 
+
+time=time+tq; 
+sprintf(str,"%d",time); 
+strcat(GC,str); 
+p[j].FT=time; 
+
+} 
+} 
+
+} 
+p[i].ST=time; 
+strcat(GC,p[i].pname); 
+time=time+tq; 
+strcat(GC," "); 
+p[i].FT=time; 
+sprintf(str,"%d",time); 
+strcat(GC,str); 
+strcat(GC,"|"); 
+
+p[i].BT=p[i].BT-tq; 
+burst_sort(); 
+
+} 
+for(i=0;i<n;i++) 
+{ 
+
+if(p[i].BT!=0) 
+goto aaa; 
+
+} 
+
+
+
+printf("\n Gantt Chart\n"); 
+puts(GC); 
+avgTTWT(); 
+
+} 
+int main() 
+{ 
+
+get_data(); 
+put_data(); 
+arrivalsort(); 
+put_data(); 
+pre_sjf(); 
+
+} 
+ 
+ 
+
+Output:- 
+
+Enter number of processes:3 
+Enter process details for 3 processes: 
+Enter process name,arival time,cpu burst time:p1 0 9 
+
+Enter process name,arival time,cpu burst time:p2 1 5 
+
+Enter process name,arival time,cpu burst time:p3 2 10 
+
+Process are as below 
+Process name arival time cpu burst time 
+p1 0 9 
+p2 1 5 
+p3 2 10 
+Process are as below  
+
+Process name arival time cpu burst time 
+p1 0 9 
+p2 1 5 
+p3 2 10 
+Gantt Chart  
+
+0|p1 1|p2 2|p2 3|p2 4|p2 5|p2 6|p1 7|p1 8|p1 9|p1 10|p1 11|p1 12|p1 13|p1 14|p3 15|p3 16|p3 
+17|p3 18|p3 19|p3 20|p3 21|p3 22|p3 23|p3 24| 
+
+ 
+Process AT BT TT WT 
+
+p2 1 5 5 4 
+p1 0 9 14 13 
+p3 2 10 22 21 
+Average turn around time=41.000000/3=13.666667 
+Average wait time=38.000000/3=12.666667 
+
+
+
+Que.2 ) Write the program to simulate Non-preemptive Priority scheduling. The 
+arrival time and first CPU-burst and priority for different n number of processes 
+should be input to the algorithm. Assume the fixed IO waiting time (2 units). The next 
+CPU-burst should be generated randomly. The output should give Gantt chart, 
+turnaround time and waiting time for each process. Also find the average waiting time 
+and turnaround time. 
+
+ 
+Program :- 
+
+#include<stdio.h> 
+#include<stdlib.h> 
+struct process 
+{ 
+
+char id; 
+int arrival; 
+int burst; 
+int priority; 
+int wait; 
+int turn; 
+int finish; 
+
+}; 
+int main() 
+{ 
+
+int n; 
+printf("Enter number of processes:"); 
+scanf("%d",&n); 
+struct process p[n]; 
+int i,j; 
+for(i=0;i<n;i++) 
+{ 
+
+printf("Enter arrival time,burst time and priority for process %c:",'A'+i); 
+scanf("%d%d%d",&p[i].arrival,&p[i].burst,&p[i].priority);  
+p[i].id='A'+i; 
+
+} 
+//Sort by arrival time 
+for(i=0;i<n;i++) 
+{ 
+
+for(j=i+1;j<n;j++) 
+{ 
+
+if(p[i].arrival>p[j].arrival) 
+{ 
+
+struct process temp = p[i]; 
+p[i] = p[j]; 
+p[j] = temp; 
+
+} 
+} 
+
+} 
+int time = 0; 
+
+
+
+float total_wait=0, total_turn=0; 
+printf("\nGantt Chart:\n"); 
+while(1) 
+{ 
+
+int highest_priority=-1; 
+int min_priority=9999; 
+for(i=0;i<n;i++) 
+{ 
+
+if(p[i].arrival<=time && p[i].burst>0 && p[i].priority < min_priority) 
+{ 
+
+min_priority = p[i].priority; 
+highest_priority = i; 
+
+} 
+} 
+if(highest_priority==-1) 
+{ 
+
+int next_arrival=9999; 
+for(i=0;i<n;i++) 
+{ 
+
+if(p[i].arrival>time && p[i].burst>0 && p[i].arrival < next_arrival) 
+{ 
+
+next_arrival = p[i].arrival; 
+} 
+
+} 
+if(next_arrival==9999) break; 
+time = next_arrival; 
+continue; 
+
+} 
+printf("%d%c",time,p[highest_priority].id); 
+time+= p[highest_priority].burst; 
+p[highest_priority].finish = time; 
+p[highest_priority].turn = p[highest_priority].finish - p[highest_priority].arrival; 
+p[highest_priority].wait = p[highest_priority].turn - p[highest_priority].burst; 
+p[highest_priority].burst = 0; 
+total_wait+= p[highest_priority].wait; 
+total_turn+= p[highest_priority].turn; 
+
+} 
+printf("\n\nProcess\tArrival\tBurst\tPriority\tWait\tTurn\n"); 
+for(i=0;i<n;i++) 
+{ 
+
+printf("%c\t%d\t%d\t%d\t%d\t%d\n",p[i].id,p[i].arrival,p[i].burst+p[i].burst- 
+p[i].burst,p[i].priority,p[i].wait,p[i].turn); 
+
+} 
+printf("Average Wait: %.2f\n",total_wait/n); 
+printf("Average Turnaround: %.2f\n",total_turn/n); 
+return 0; 
+
+} 
+
+
+
+Output :- 
+
+Enter number of processes:5 
+Enter arrival time,burst time and priority for process A:0 10 3 
+Enter arrival time,burst time and priority for process B:4 5 0 
+Enter arrival time,burst time and priority for process C:3 2 1 
+Enter arrival time,burst time and priority for process D:5 16 2 
+Enter arrival time,burst time and priority for process E:2 8 4 
+
+ 
+Gantt Chart: 
+0A10B15C17D33E 
+
+ 
+Process Arrival Burst Priority Wait Turn 
+A 0 0 3 0 10 
+E 2 0 4 31 39 
+C 3 0 1 12 14 
+B 4 0 0 6 11 
+D 5 0 2 12 28 
+Average Wait: 12.20 
+Average Turnaround: 20.40 
+
+ 
+ 
+
+SET-C 
+
+Que 1) Write the program to simulate Preemptive Priority scheduling. The arrival 
+time and first CPU-burst and priority for different n number of processes should be 
+input to the algorithm. Assume the fixed IO waiting time (2 units). The next CPU-burst 
+should be generated randomly. The output should give Gantt chart, turnaround time 
+and waiting time for each process. Also find the average waiting time and turnaround 
+time. 
+
+ 
+Program :- 
+
+#include<stdio.h> 
+struct process 
+{ 
+
+char id; 
+int arrival; 
+int burst; 
+int priority; 
+int wait; 
+int turn; 
+int finish; 
+
+}; 
+int main() 
+{ 
+
+int n; 
+printf("Enter number of processes:"); 
+
+
+
+scanf("%d",&n); 
+struct process p[n]; 
+int i,j; 
+for(i=0;i<n;i++) 
+{ 
+
+printf("Enter arrival time,burst time and priority for process %c:",'A'+i); 
+scanf("%d%d%d",&p[i].arrival,&p[i].burst,&p[i].priority);  
+p[i].id='A'+i; 
+
+} 
+int time = 0; 
+int completed = 0; 
+float total_wait=0, total_turn=0; 
+printf("\nGantt Chart:\n"); 
+while(completed < n) 
+{ 
+
+int highest_priority=-1; 
+int min_priority=9999; 
+for(i=0;i<n;i++) 
+{ 
+
+if(p[i].arrival<=time && p[i].burst>0 && p[i].priority < min_priority) 
+{ 
+
+min_priority = p[i].priority; 
+highest_priority = i; 
+
+} 
+} 
+if(highest_priority==-1) 
+{ 
+
+time++; 
+continue; 
+
+} 
+printf("%d%c",time,p[highest_priority].id); 
+time++; 
+p[highest_priority].burst--; 
+if(p[highest_priority].burst==0) 
+{ 
+
+p[highest_priority].finish = time; 
+p[highest_priority].turn = p[highest_priority].finish - p[highest_priority].arrival; 
+p[highest_priority].wait = p[highest_priority].turn - p[highest_priority].burst; 
+completed++; 
+total_wait+= p[highest_priority].wait; 
+total_turn+= p[highest_priority].turn; 
+
+} 
+} 
+printf("\n\nProcess\tArrival\tBurst\tPriority\tWait\tTurn\n"); 
+for(i=0;i<n;i++) 
+{ 
+
+printf("%c\t%d\t%d\t%d\t%d\t%d\n",p[i].id,p[i].arrival,p[i].burst+p[i].burst- 
+p[i].burst,p[i].priority,p[i].wait,p[i].turn); 
+
+
+
+} 
+printf("Average Wait: %.2f\n",total_wait/n); 
+printf("Average Turnaround: %.2f\n",total_turn/n); 
+return 0; 
+
+} 
+ 
+ 
+
+Output :- 
+
+Enter number of processes:5 
+Enter arrival time,burst time and priority for process A:0 10 3 
+Enter arrival time,burst time and priority for process B:4 5 0 
+Enter arrival time,burst time and priority for process C:3 2 1 
+Enter arrival time,burst time and priority for process D:5 16 2 
+Enter arrival time,burst time and priority for process E:2 8 4 
+
+ 
+Gantt Chart: 
+0A1A2A3C4B5B6B7B8B9C10D11D12D13D14D15D16D17D18D19D20D21D22D23D24 
+D25D26A27A28A29A30A31A32A33E34E35E36E37E38E39E40E 
+
+ 
+Process Arrival Burst Priority Wait Turn 
+A 0 0 3 33 33 
+B 4 0 0 5 5 
+C 3 0 1 7 7 
+D 5 0 2 21 21 
+E 2 0 4 39 39 
+
+ 
+Average Wait: 21.00 
+Average Turnaround: 21.00
